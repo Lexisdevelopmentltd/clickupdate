@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as date ;
 import 'package:flutter_svg/svg.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:intl/intl.dart';
@@ -940,9 +940,9 @@ class _EditProfileViewState extends StateMVC<EditProfileView> {
                                             GestureDetector(
                                               onTap: () {
                                                 FocusScope.of(context).unfocus();
-                                                DatePicker.showDatePicker(
+                                               date. DatePicker.showDatePicker(
                                                   context,
-                                                  theme: DatePickerTheme(
+                                                  theme: date.DatePickerTheme(
                                                     headerColor: settingRepo.setting.value.accentColor,
                                                     backgroundColor: settingRepo.setting.value.buttonColor!,
                                                     itemStyle: TextStyle(color: settingRepo.setting.value.textColor, fontWeight: FontWeight.w400, fontSize: 18),
@@ -974,7 +974,7 @@ class _EditProfileViewState extends StateMVC<EditProfileView> {
                                                     _con.onChanged(result);
                                                   },
                                                   currentTime: DateTime.now(),
-                                                  locale: LocaleType.en,
+                                                  locale: date.LocaleType.en,
                                                 );
                                                 /*showCupertinoDatePicker(context,
                                                     mode: CupertinoDatePickerMode.date,

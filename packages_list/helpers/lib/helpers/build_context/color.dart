@@ -24,7 +24,7 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).accentColor
   ///```
-  Color get accent => Theme.of(_context).accentColor;
+  Color get accent => Theme.of(_context).colorScheme.secondary;
 
   ///```dart
   ///return Theme.of(context).canvasColor
@@ -44,7 +44,7 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).bottomAppBarColor
   ///```
-  Color get bottomAppBar => Theme.of(_context).bottomAppBarColor;
+  Color get bottomAppBar => Theme.of(_context).dialogBackgroundColor;
 
   ///```dart
   ///return Theme.of(context).cardColor
@@ -79,7 +79,7 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).selectedRowColor
   ///```
-  Color get selectedRow => Theme.of(_context).selectedRowColor;
+  // Color get selectedRow => Theme.of(_context).selectedRowColor;
 
   ///```dart
   ///return Theme.of(context).unselectedWidgetColor
@@ -94,7 +94,7 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).buttonColor
   ///```
-  Color get button => Theme.of(_context).buttonColor;
+  // Color get button => Theme.of(_context).buttonColor;
 
   ///```dart
   ///return Theme.of(context).secondaryHeaderColor
@@ -104,7 +104,7 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).backgroundColor
   ///```
-  Color get background => Theme.of(_context).backgroundColor;
+  Color get background => Theme.of(_context).focusColor;
 
   ///```dart
   ///return Theme.of(context).dialogBackgroundColor
@@ -124,10 +124,10 @@ class BuildColor {
   ///```dart
   ///return Theme.of(context).errorColor
   ///```
-  Color get error => Theme.of(_context).errorColor;
+  Color get error => Theme.of(_context).dialogBackgroundColor;
 
   ///```dart
   ///return Theme.of(context).toggleableActiveColor
   ///```
-  Color get toggleableActive => Theme.of(_context).toggleableActiveColor;
+  Color get toggleableActive => Theme.of(_context).cardColor;
 }

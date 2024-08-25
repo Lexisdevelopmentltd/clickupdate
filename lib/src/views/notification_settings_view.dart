@@ -108,8 +108,8 @@ class _NotificationSettingState extends StateMVC<NotificationSetting> {
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      "Push Notification".text.textStyle(Theme.of(context).textTheme.headline2!.copyWith(color: settingRepo.setting.value.textColor)).make().pOnly(bottom: 5),
-                                                      "Turn on all mobile notifications or select which to receive".text.textStyle(Theme.of(context).textTheme.bodyText1!.copyWith(color: settingRepo.setting.value.textColor)).make(),
+                                                      "Push Notification".text.textStyle(Theme.of(context).textTheme.displayMedium!.copyWith(color: settingRepo.setting.value.textColor)).make().pOnly(bottom: 5),
+                                                      "Turn on all mobile notifications or select which to receive".text.textStyle(Theme.of(context).textTheme.bodySmall!.copyWith(color: settingRepo.setting.value.textColor)).make(),
                                                     ],
                                                   ),
                                                 ),

@@ -250,7 +250,7 @@ class VerifyProfileController extends ControllerMVC {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    // primary: Colors.transparent,
                     padding: EdgeInsets.all(10),
                     // shape: RoundedRectangleBorder(
                     //   borderRadius: BorderRadius.circular(100.0),

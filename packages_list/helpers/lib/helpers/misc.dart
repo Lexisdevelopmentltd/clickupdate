@@ -108,7 +108,7 @@ abstract class Misc {
   ///await SystemChrome.setEnabledSystemUIOverlays(overlays)
   ///```
   static Future<void> setSystemOverlay(List<SystemUiOverlay> overlays) async {
-    await SystemChrome.setEnabledSystemUIOverlays(overlays);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: overlays);
   }
 
   ///DO THAT:

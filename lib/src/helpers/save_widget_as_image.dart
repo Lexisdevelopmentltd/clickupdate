@@ -26,12 +26,12 @@ Future offStage(Widget widget, {Duration? wait, bool openFilePreview = true, boo
 
   try {
     final RenderView renderView = RenderView(
-      window: ui.window,
+      
       child: RenderPositionedBox(alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
-        size: logicalSize,
+        // size: logicalSize,
         devicePixelRatio: 1.0,
-      ),
+      ), view:WidgetsBinding.instance.platformDispatcher.views.first
     );
 
     /// setting the rootNode to the renderview of the widget

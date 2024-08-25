@@ -471,7 +471,6 @@ class _AnimatedInteractiveViewerState extends State<AnimatedInteractiveViewer>
       clipBehavior: widget.clipBehavior,
       constrained: widget.constrained,
       panEnabled: widget.panEnabled,
-      alignPanAxis: widget.alignPanAxis,
       boundaryMargin: widget.boundaryMargin,
       scaleEnabled: widget.scaleEnabled,
       child: GestureDetector(

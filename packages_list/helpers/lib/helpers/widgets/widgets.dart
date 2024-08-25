@@ -52,7 +52,7 @@ class RemoveScrollGlow extends StatelessWidget {
   Widget build(BuildContext context) {
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (OverscrollIndicatorNotification overscroll) {
-        overscroll.disallowGlow();
+        // overscroll.disallowGlow();
         return;
       } as bool Function(OverscrollIndicatorNotification)?,
       child: child,

@@ -174,7 +174,7 @@ class VerticalStackDialog extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: titleStyle ?? theme.textTheme.headline6,
+          style: titleStyle ?? theme.textTheme.bodyMedium,
         ),
         const SizedBox(
           height: 10.0,

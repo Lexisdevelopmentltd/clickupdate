@@ -125,7 +125,7 @@ class _SlidingBottomSheetContainerState
             color: widget.color,
           ),
           child: AnimatedSize(
-            vsync: this,
+            // vsync: this,
             clipBehavior: Clip.none,
             alignment: Alignment.bottomCenter,
             curve: widget.animatedSizeCurve,

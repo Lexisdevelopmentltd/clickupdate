@@ -294,7 +294,7 @@ class _EditVideoState extends StateMVC<EditVideo> with SingleTickerProviderState
                                     flex: 2,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.transparent,
+                                        // primary: Colors.transparent,
                                         padding: EdgeInsets.all(10),
                                         // shape: RoundedRectangleBorder(
                                         //   borderRadius: BorderRadius.circular(100.0),
@@ -328,7 +328,7 @@ class _EditVideoState extends StateMVC<EditVideo> with SingleTickerProviderState
                                     flex: 2,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.transparent,
+                                        // primary: Colors.transparent,
                                         padding: EdgeInsets.all(10),
                                         // shape: RoundedRectangleBorder(
                                         //   borderRadius: BorderRadius.circular(100.0),

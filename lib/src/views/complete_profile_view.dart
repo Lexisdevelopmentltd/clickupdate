@@ -3,7 +3,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as date;
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -669,9 +669,9 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                       },
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDatePicker(
+                      date.DatePicker.showDatePicker(
                           context,
-                          theme: DatePickerTheme(
+                          theme: date.DatePickerTheme(
                             headerColor: settingRepo.setting.value.accentColor,
                             backgroundColor: settingRepo.setting.value.buttonColor!,
                             itemStyle: TextStyle(color: settingRepo.setting.value.textColor, fontWeight: FontWeight.w400, fontSize: 18),
@@ -694,7 +694,7 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                             _con.profileDOBString = _con.validDob(date.year.toString(), date.month.toString(), date.day.toString());
                           },
                           currentTime: DateTime.now(),
-                          locale: LocaleType.en,
+                          locale: date.LocaleType.en,
                         );
                       },
                       decoration: InputDecoration(
@@ -864,9 +864,8 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                     Container(
                       child: Theme(
                         data: ThemeData(
-                          backgroundColor: settingRepo.setting.value.bgColor,
                           textTheme: TextTheme(
-                            subtitle1: TextStyle(
+                            titleMedium: TextStyle(
                               color: settingRepo.setting.value.dividerColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
@@ -880,7 +879,7 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
                             ),
-                          ),
+                          ),// colorScheme: ColorScheme(background: settingRepo.setting.value.bgColor),
                         ),
                         child: Align(
                           alignment: Alignment.centerLeft,
