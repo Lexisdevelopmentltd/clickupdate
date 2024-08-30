@@ -1315,7 +1315,7 @@ class UserController extends ControllerMVC {
             dialogBackgroundColor: settingRepo.setting.value.buttonColor,
             context: GlobalVariable.navState.currentContext!,
             animType: AnimType.scale,
-            dialogType: DialogType.INFO,
+            dialogType: DialogType.info,
             body: Padding(
               padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
               child: Column(
@@ -1388,7 +1388,7 @@ class UserController extends ControllerMVC {
             dialogBackgroundColor: settingRepo.setting.value.buttonColor,
             context: GlobalVariable.navState.currentContext!,
             animType: AnimType.scale,
-            dialogType: DialogType.INFO,
+            dialogType: DialogType.info,
             body: Padding(
               padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
               child: Column(
@@ -1457,7 +1457,7 @@ class UserController extends ControllerMVC {
       dialogBackgroundColor: settingRepo.setting.value.buttonColor,
       context: GlobalVariable.navState.currentContext!,
       animType: AnimType.scale,
-      dialogType: DialogType.INFO,
+      dialogType: DialogType.info,
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
         child: Column(

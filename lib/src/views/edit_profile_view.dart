@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as date ;
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart' as date ;
 import 'package:flutter_svg/svg.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:intl/intl.dart';

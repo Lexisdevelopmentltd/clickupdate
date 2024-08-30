@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:leuke/src/views/login_view.dart';
 import 'package:like_button/like_button.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:pedantic/pedantic.dart';
@@ -45,7 +46,8 @@ class DashboardView extends StatefulWidget {
   _DashboardViewState createState() => _DashboardViewState();
 }
 
-class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProviderStateMixin, RouteAware {
+class _DashboardViewState extends StateMVC<DashboardView>
+    with SingleTickerProviderStateMixin, RouteAware {
   DashboardController _con = DashboardController();
   double hgt = 0;
   late AnimationController musicAnimationController;
@@ -67,7 +69,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
     videoRepo.isOnHomePage.value = true;
     videoRepo.isOnHomePage.notifyListeners();
     _con = videoRepo.homeCon.value;
-    videoRepo.homeCon.value.scaffoldKey = new GlobalKey<ScaffoldState>(debugLabel: "_dashboardPage");
+    videoRepo.homeCon.value.scaffoldKey =
+        new GlobalKey<ScaffoldState>(debugLabel: "_dashboardPage");
     musicAnimationController = new AnimationController(
       vsync: this,
       duration: new Duration(seconds: 10),
@@ -80,7 +83,9 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
     }
     videoRepo.homeCon.value.getAds();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final viewInsets = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets, WidgetsBinding.instance.window.devicePixelRatio);
+      final viewInsets = EdgeInsets.fromWindowPadding(
+          WidgetsBinding.instance.window.viewInsets,
+          WidgetsBinding.instance.window.devicePixelRatio);
       if (viewInsets.bottom == 0.0) {
         if (videoRepo.homeCon.value.bannerShowOn.indexOf("1") > -1) {
           videoRepo.homeCon.value.paddingBottom = Platform.isAndroid ? 0 : 80.0;
@@ -107,17 +112,21 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
       videoRepo.homeCon.value.onTap = false;
       videoRepo.homeCon.notifyListeners();
       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+        videoRepo.homeCon.value
+            .stopController(videoRepo.homeCon.value.swiperIndex);
       } else {
-        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+        videoRepo.homeCon.value
+            .stopController2(videoRepo.homeCon.value.swiperIndex2);
       }
     } else {
       videoRepo.homeCon.value.onTap = true;
       videoRepo.homeCon.notifyListeners();
       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-        videoRepo.homeCon.value.playController(videoRepo.homeCon.value.swiperIndex);
+        videoRepo.homeCon.value
+            .playController(videoRepo.homeCon.value.swiperIndex);
       } else {
-        videoRepo.homeCon.value.playController2(videoRepo.homeCon.value.swiperIndex);
+        videoRepo.homeCon.value
+            .playController2(videoRepo.homeCon.value.swiperIndex);
       }
     }
   }
@@ -126,17 +135,21 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
   dispose() async {
     musicAnimationController.dispose();
     if (videoRepo.homeCon.value.showFollowingPage.value) {
-      videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+      videoRepo.homeCon.value
+          .stopController(videoRepo.homeCon.value.swiperIndex);
     } else {
-      print("videoRepo.homeCon.value.swiperIndex2 ${videoRepo.homeCon.value.swiperIndex2}");
-      videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+      print(
+          "videoRepo.homeCon.value.swiperIndex2 ${videoRepo.homeCon.value.swiperIndex2}");
+      videoRepo.homeCon.value
+          .stopController2(videoRepo.homeCon.value.swiperIndex2);
     }
     int count = 0;
     if (videoRepo.homeCon.value.videoControllers.length > 0) {
       List<String?> toRemoveVideoPlayerController = [];
       videoRepo.homeCon.value.videoControllers.forEach((key, value) async {
         if (value!.value.isInitialized) {
-          await value.dispose().onError((error, stackTrace) => print("error disposing videoControllers $error"));
+          await value.dispose().onError((error, stackTrace) =>
+              print("error disposing videoControllers $error"));
         }
         toRemoveVideoPlayerController.add(key);
         videoRepo.homeCon.value.initializeVideoPlayerFutures.remove(key);
@@ -153,7 +166,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
 
       videoRepo.homeCon.value.videoControllers2.forEach((key, value) async {
         if (value!.value.isInitialized) {
-          await value.dispose().onError((error, stackTrace) => print("error disposing videoControllers2 $error"));
+          await value.dispose().onError((error, stackTrace) =>
+              print("error disposing videoControllers2 $error"));
         }
         toRemoveVideoPlayerController2.add(key);
         videoRepo.homeCon.value.initializeVideoPlayerFutures2.remove(key);
@@ -174,7 +188,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
   }
 
   reportLayout(context, Video videoObj) {
-    print("videoRepo.homeCon.value.selectedType ${videoRepo.homeCon.value.selectedType}");
+    print(
+        "videoRepo.homeCon.value.selectedType ${videoRepo.homeCon.value.selectedType}");
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -206,7 +221,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             Container(
                               child: Theme(
                                 data: Theme.of(context).copyWith(
-                                  canvasColor: settingRepo.setting.value.accentColor,
+                                  canvasColor:
+                                      settingRepo.setting.value.accentColor,
                                 ),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButtonFormField(
@@ -214,27 +230,38 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                     hint: new Text(
                                       "Select Type",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: settingRepo.setting.value.textColor!.withOpacity(0.7)),
+                                      style: TextStyle(
+                                          color: settingRepo
+                                              .setting.value.textColor!
+                                              .withOpacity(0.7)),
                                     ),
-                                    iconEnabledColor: settingRepo.setting.value.iconColor,
+                                    iconEnabledColor:
+                                        settingRepo.setting.value.iconColor,
                                     style: new TextStyle(
-                                      color: settingRepo.setting.value.textColor,
+                                      color:
+                                          settingRepo.setting.value.textColor,
                                       fontSize: 15.0,
                                     ),
                                     value: videoRepo.homeCon.value.selectedType,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        videoRepo.homeCon.value.selectedType = newValue!;
+                                        videoRepo.homeCon.value.selectedType =
+                                            newValue!;
                                       });
                                     },
-                                    validator: (value) => value == null ? 'This field is required!' : null,
-                                    items: videoRepo.homeCon.value.reportType.map((String val) {
+                                    validator: (value) => value == null
+                                        ? 'This field is required!'
+                                        : null,
+                                    items: videoRepo.homeCon.value.reportType
+                                        .map((String val) {
                                       print("val $val");
                                       return new DropdownMenuItem(
                                         value: val,
                                         child: new Text(
                                           val,
-                                          style: new TextStyle(color: settingRepo.setting.value.textColor),
+                                          style: new TextStyle(
+                                              color: settingRepo
+                                                  .setting.value.textColor),
                                         ),
                                       );
                                     }).toList(),
@@ -251,13 +278,15 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                               decoration: InputDecoration(
                                 labelText: 'Description',
                                 labelStyle: TextStyle(
-                                  color: settingRepo.setting.value.textColor!.withOpacity(0.8),
+                                  color: settingRepo.setting.value.textColor!
+                                      .withOpacity(0.8),
                                   fontSize: 15.0,
                                 ),
                               ),
                               onChanged: (String val) {
                                 setState(() {
-                                  videoRepo.homeCon.value.videoReportDescription = val;
+                                  videoRepo.homeCon.value
+                                      .videoReportDescription = val;
                                 });
                               },
                             ),
@@ -273,23 +302,36 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                     flex: 6,
                                     child: Row(
                                       children: [
-                                        "Block".text.color(settingRepo.setting.value.textColor!).size(16).make(),
+                                        "Block"
+                                            .text
+                                            .color(settingRepo
+                                                .setting.value.textColor!)
+                                            .size(16)
+                                            .make(),
                                       ],
                                     ),
                                   ),
                                   Expanded(
                                     flex: 1,
                                     child: ValueListenableBuilder(
-                                        valueListenable: videoRepo.homeCon.value.videoReportBlocked,
+                                        valueListenable: videoRepo
+                                            .homeCon.value.videoReportBlocked,
                                         builder: (context, bool videoBlock, _) {
                                           return Transform.scale(
                                             scale: 0.6,
                                             child: CupertinoSwitch(
-                                              activeColor: settingRepo.setting.value.accentColor,
+                                              activeColor: settingRepo
+                                                  .setting.value.accentColor,
                                               value: videoBlock,
                                               onChanged: (value) {
-                                                videoRepo.homeCon.value.videoReportBlocked.value = value;
-                                                videoRepo.homeCon.value.videoReportBlocked.notifyListeners();
+                                                videoRepo
+                                                    .homeCon
+                                                    .value
+                                                    .videoReportBlocked
+                                                    .value = value;
+                                                videoRepo.homeCon.value
+                                                    .videoReportBlocked
+                                                    .notifyListeners();
                                               },
                                             ),
                                           );
@@ -307,9 +349,11 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    WidgetsBinding.instance.addPostFrameCallback((_) async {
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) async {
                                       setState(() {
-                                        if (!videoRepo.homeCon.value.showReportLoader.value) {
+                                        if (!videoRepo.homeCon.value
+                                            .showReportLoader.value) {
                                           validateForm(videoObj, context);
                                         }
                                       });
@@ -318,22 +362,32 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                   child: Container(
                                     height: 30,
                                     width: 60,
-                                    decoration: BoxDecoration(color: settingRepo.setting.value.accentColor),
+                                    decoration: BoxDecoration(
+                                        color: settingRepo
+                                            .setting.value.accentColor),
                                     child: ValueListenableBuilder(
-                                        valueListenable: videoRepo.homeCon.value.showReportLoader,
-                                        builder: (context, bool reportLoader, _) {
+                                        valueListenable: videoRepo
+                                            .homeCon.value.showReportLoader,
+                                        builder:
+                                            (context, bool reportLoader, _) {
                                           return Center(
                                             child: (!reportLoader)
                                                 ? Text(
                                                     "Submit",
                                                     style: TextStyle(
-                                                      color: settingRepo.setting.value.buttonTextColor,
-                                                      fontWeight: FontWeight.bold,
+                                                      color: settingRepo
+                                                          .setting
+                                                          .value
+                                                          .buttonTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 11,
                                                       fontFamily: 'RockWellStd',
                                                     ),
                                                   )
-                                                : Helper.showLoaderSpinner(settingRepo.setting.value.textColor!),
+                                                : Helper.showLoaderSpinner(
+                                                    settingRepo.setting.value
+                                                        .textColor!),
                                           );
                                         }),
                                   ),
@@ -343,22 +397,28 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                                      videoRepo.homeCon.value.playController(videoRepo.homeCon.value.swiperIndex);
+                                    if (!videoRepo.homeCon.value
+                                        .showFollowingPage.value) {
+                                      videoRepo.homeCon.value.playController(
+                                          videoRepo.homeCon.value.swiperIndex);
                                     } else {
-                                      videoRepo.homeCon.value.playController2(videoRepo.homeCon.value.swiperIndex2);
+                                      videoRepo.homeCon.value.playController2(
+                                          videoRepo.homeCon.value.swiperIndex2);
                                     }
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     height: 30,
                                     width: 60,
-                                    decoration: BoxDecoration(color: settingRepo.setting.value.accentColor),
+                                    decoration: BoxDecoration(
+                                        color: settingRepo
+                                            .setting.value.accentColor),
                                     child: Center(
                                       child: Text(
                                         "Cancel",
                                         style: TextStyle(
-                                          color: settingRepo.setting.value.buttonTextColor,
+                                          color: settingRepo
+                                              .setting.value.buttonTextColor,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 11,
                                           fontFamily: 'RockWellStd',
@@ -400,27 +460,36 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
       systemNavigationBarColor: settingRepo.setting.value.bgColor,
     ));
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: settingRepo.setting.value.bgColor, statusBarIconBrightness: Brightness.light),
+      SystemUiOverlayStyle(
+          statusBarColor: settingRepo.setting.value.bgColor,
+          statusBarIconBrightness: Brightness.light),
     );
 
     return WillPopScope(
       onWillPop: () {
         DateTime now = DateTime.now();
-        if (videoRepo.homeCon.value != null && videoRepo.homeCon.value.pc != null && videoRepo.homeCon.value.pc.isPanelOpen) {
+        if (videoRepo.homeCon.value != null &&
+            videoRepo.homeCon.value.pc != null &&
+            videoRepo.homeCon.value.pc.isPanelOpen) {
           videoRepo.homeCon.value.pc.close();
           return Future.value(false);
         }
-        if (videoRepo.userVideoObj.value.videoId > 0 || videoRepo.userVideoObj.value.userId > 0 || videoRepo.userVideoObj.value.hashTag != "" || videoRepo.userVideoObj.value.name != "") {
+        if (videoRepo.userVideoObj.value.videoId > 0 ||
+            videoRepo.userVideoObj.value.userId > 0 ||
+            videoRepo.userVideoObj.value.hashTag != "" ||
+            videoRepo.userVideoObj.value.name != "") {
           videoRepo.userVideoObj.value.videoId = 0;
           videoRepo.userVideoObj.value.userId = 0;
           videoRepo.userVideoObj.value.name = "";
           videoRepo.userVideoObj.value.hashTag = "";
           if (!videoRepo.homeCon.value.showFollowingPage.value) {
-            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+            videoRepo.homeCon.value
+                .stopController(videoRepo.homeCon.value.swiperIndex);
             Navigator.of(context).pushReplacementNamed('/home');
             videoRepo.homeCon.value.getVideos();
           } else {
-            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex2);
+            videoRepo.homeCon.value
+                .stopController(videoRepo.homeCon.value.swiperIndex2);
             Navigator.of(context).pushReplacementNamed('/home');
             videoRepo.homeCon.value.getFollowingUserVideos();
           }
@@ -448,23 +517,28 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                     RefreshIndicator(
                       onRefresh: () {
                         if (videoRepo.randomString.value != "") {
-                          videoRepo.randomString.value = Helper.getRandomString(4, numeric: true);
+                          videoRepo.randomString.value =
+                              Helper.getRandomString(4, numeric: true);
                           videoRepo.randomString.notifyListeners();
                         }
                         if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                          videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          videoRepo.homeCon.value.stopController(
+                              videoRepo.homeCon.value.swiperIndex);
 
                           Navigator.of(context).pushReplacementNamed('/home');
                           return videoRepo.homeCon.value.getVideos();
                         } else {
-                          videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex2);
+                          videoRepo.homeCon.value.stopController(
+                              videoRepo.homeCon.value.swiperIndex2);
 
                           Navigator.of(context).pushReplacementNamed('/home');
-                          return videoRepo.homeCon.value.getFollowingUserVideos();
+                          return videoRepo.homeCon.value
+                              .getFollowingUserVideos();
                         }
                       },
                       child: Container(
-                        padding: new EdgeInsets.only(bottom: videoRepo.homeCon.value.paddingBottom),
+                        padding: new EdgeInsets.only(
+                            bottom: videoRepo.homeCon.value.paddingBottom),
                         child: homeWidget(),
                       ),
                     ),
@@ -479,7 +553,12 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       child: ValueListenableBuilder(
                         valueListenable: videoRepo.homeCon.value.showBannerAd,
                         builder: (context, bool adLoader, _) {
-                          return adLoader ? Center(child: Container(width: MediaQuery.of(context).size.width, child: BannerAdWidget())) : Container();
+                          return adLoader
+                              ? Center(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: BannerAdWidget()))
+                              : Container();
                         },
                       ),
                     ),
@@ -487,12 +566,430 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                 );
               }),
           bottomNavigationBar: !videoRepo.homeCon.value.hideBottomBar.value
-              ? ConvexAppBar(
-                  elevation: 0,
-                  color: Colors.transparent,
-                  backgroundColor: Colors.blue, //Udoka settingRepo.setting.value.navBgColor,
-                  curveSize: 110,
+              ?
+              // BottomNavigationBar(
+              //     useLegacyColorScheme: false,
+              //     backgroundColor: Colors.white,
+              //     showUnselectedLabels: true,
+              //     unselectedLabelStyle: const TextStyle(color: Colors.white),
+              //     items: [
+              //       BottomNavigationBarItem(
+              //           icon: ValueListenableBuilder(
+              //             valueListenable:
+              //                 videoRepo.homeCon.value.showHomeLoader,
+              //             builder: (context, bool homeLoader, _) {
+              //               return !homeLoader
+              //                   ? SvgPicture.asset(
+              //                       'assets/icons/home.svg',
+              //                       width: 28.0,
+              //                       color: Colors
+              //                           .white, // Udoka settingRepo.setting.value.dashboardIconColor,
+              //                     )
+              //                   : Helper.showLoaderSpinner(settingRepo
+              //                       .setting.value.dashboardIconColor!);
+              //             },
+              //           ),
+              //           label: 'Home'),
+              // BottomNavigationBarItem(
+              //     icon: IconButton(
+              //       padding: EdgeInsets.all(0),
+              //       icon: Icon(
+              //         Icons.search,
+              //         color: Colors.white,
+              //       ),
+              //       //  SvgPicture.asset(
+              //       //   'assets/icons/hash-tag.svg',
+              //       //   width: 35.0,
+              //       //   color: Colors
+              //       //       .white, // Udoka settingRepo.setting.value.dashboardIconColor,
+              //       // ),
+              //       onPressed: () async {
+              //         videoRepo.isOnHomePage.value = false;
+              //         videoRepo.isOnHomePage.notifyListeners();
+              //         if (!videoRepo
+              //             .homeCon.value.showFollowingPage.value) {
+              //           videoRepo.homeCon.value.stopController(
+              //               videoRepo.homeCon.value.swiperIndex);
+              //         } else {
+              //           videoRepo.homeCon.value.stopController2(
+              //               videoRepo.homeCon.value.swiperIndex2);
+              //         }
 
+              //         Navigator.pushReplacementNamed(
+              //           context,
+              //           '/hash-videos',
+              //         );
+              //       },
+              //     ),
+              //     label: 'Search'),
+              // BottomNavigationBarItem(
+              //   icon: IconButton(
+              //     padding: EdgeInsets.all(0),
+              //     icon: SvgPicture.asset(
+              //       'assets/icons/button_shape.svg',
+              //       width: 50.0,
+              //       //color: settingRepo.setting.value.dashboardIconColor,
+              //     ),
+              //     onPressed: () async {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       setState(() {
+              //         videoRepo.homeCon.value.paddingBottom = 0.0;
+              //       });
+              //       if (!videoRepo
+              //           .homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       if (currentUser.value.token != '') {
+              //         videoRepo.isOnRecordingPage.value = true;
+              //         videoRepo.isOnRecordingPage.notifyListeners();
+              //         Navigator.pushReplacementNamed(
+              //             context, '/video-recorder');
+              //       } else {
+              //         Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) =>
+              //                 PasswordLoginView(userId: 0),
+              //           ),
+              //         );
+              //       }
+              //     },
+              //   ),
+              // ),
+              // BottomNavigationBarItem(
+              //     icon: ValueListenableBuilder(
+              //       valueListenable: videoRepo.unreadMessageCount,
+              //       builder: (context, int _messageCount, _) {
+              //         print("_messageCount $_messageCount");
+              //         return Stack(
+              //           children: [
+              //             IconButton(
+              //               padding: EdgeInsets.all(0),
+              //               icon: SvgPicture.asset(
+              //                 'assets/icons/chat.svg',
+              //                 width: 30.0,
+              //                 color: Colors
+              //                     .deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
+              //               ),
+              //               onPressed: () async {
+              //                 videoRepo.isOnHomePage.value = false;
+              //                 videoRepo.isOnHomePage.notifyListeners();
+              //                 if (!videoRepo.homeCon.value
+              //                     .showFollowingPage.value) {
+              //                   videoRepo.homeCon.value.stopController(
+              //                       videoRepo.homeCon.value.swiperIndex);
+              //                 } else {
+              //                   videoRepo.homeCon.value.stopController2(
+              //                       videoRepo.homeCon.value.swiperIndex2);
+              //                 }
+              //                 if (currentUser.value.token != '') {
+              //                   Navigator.pushReplacementNamed(
+              //                     context,
+              //                     "/conversation",
+              //                   );
+              //                 } else {
+              //                   Navigator.pushReplacement(
+              //                     context,
+              //                     MaterialPageRoute(
+              //                       builder: (context) =>
+              //                           PasswordLoginView(userId: 0),
+              //                     ),
+              //                   );
+              //                 }
+              //               },
+              //             ),
+              //             Positioned(
+              //               top: 0,
+              //               right: 0,
+              //               child: _messageCount > 0
+              //                   ? Transform.translate(
+              //                       offset: Offset(-2, -6),
+              //                       child: Container(
+              //                         padding: EdgeInsets.symmetric(
+              //                             horizontal: 2, vertical: 0),
+              //                         decoration: BoxDecoration(
+              //                           color: settingRepo
+              //                               .setting.value.textColor,
+              //                           borderRadius:
+              //                               BorderRadius.circular(100),
+              //                         ),
+              //                         child: Center(
+              //                           child: Text(
+              //                             _messageCount.toString(),
+              //                             style: TextStyle(
+              //                               color: settingRepo.setting
+              //                                   .value.accentColor,
+              //                               fontSize: 8,
+              //                             ),
+              //                           ),
+              //                         ),
+              //                       ),
+              //                     )
+              //                   : SizedBox(
+              //                       height: 0,
+              //                     ),
+              //             ),
+              //           ],
+              //         );
+              //       },
+              //     ),
+              //     label: ''),
+              // BottomNavigationBarItem(
+              //   icon: ValueListenableBuilder(
+              //     valueListenable: videoRepo.unreadMessageCount,
+              //     builder: (context, int _messageCount, _) {
+              //       print("_messageCount $_messageCount");
+              //       return Stack(
+              //         children: [
+              //           IconButton(
+              //             padding: EdgeInsets.all(0),
+              //             icon: SvgPicture.asset(
+              //               'assets/icons/chat.svg',
+              //               width: 30.0,
+              //               color: Colors
+              //                   .deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
+              //             ),
+              //             onPressed: () async {
+              //               videoRepo.isOnHomePage.value = false;
+              //               videoRepo.isOnHomePage.notifyListeners();
+              //               if (!videoRepo
+              //                   .homeCon.value.showFollowingPage.value) {
+              //                 videoRepo.homeCon.value.stopController(
+              //                     videoRepo.homeCon.value.swiperIndex);
+              //               } else {
+              //                 videoRepo.homeCon.value.stopController2(
+              //                     videoRepo.homeCon.value.swiperIndex2);
+              //               }
+              //               if (currentUser.value.token != '') {
+              //                 Navigator.pushReplacementNamed(
+              //                   context,
+              //                   "/conversation",
+              //                 );
+              //               } else {
+              //                 Navigator.pushReplacement(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                     builder: (context) =>
+              //                         PasswordLoginView(userId: 0),
+              //                   ),
+              //                 );
+              //               }
+              //             },
+              //           ),
+              //           Positioned(
+              //             top: 0,
+              //             right: 0,
+              //             child: _messageCount > 0
+              //                 ? Transform.translate(
+              //                     offset: Offset(-2, -6),
+              //                     child: Container(
+              //                       padding: EdgeInsets.symmetric(
+              //                           horizontal: 2, vertical: 0),
+              //                       decoration: BoxDecoration(
+              //                         color: settingRepo
+              //                             .setting.value.textColor,
+              //                         borderRadius:
+              //                             BorderRadius.circular(100),
+              //                       ),
+              //                       child: Center(
+              //                         child: Text(
+              //                           _messageCount.toString(),
+              //                           style: TextStyle(
+              //                             color: settingRepo
+              //                                 .setting.value.accentColor,
+              //                             fontSize: 8,
+              //                           ),
+              //                         ),
+              //                       ),
+              //                     ),
+              //                   )
+              //                 : SizedBox(
+              //                     height: 0,
+              //                   ),
+              //           ),
+              //         ],
+              //       );
+              //     },
+              //   ),
+              // ),
+              // BottomNavigationBarItem(
+              //   icon: IconButton(
+              //     padding: EdgeInsets.all(0),
+              //     icon: SvgPicture.asset(
+              //       'assets/icons/user.svg',
+              //       width: 30.0,
+              //       color: Colors
+              //           .deepPurpleAccent, // Udoka(the follow come color i removed) settingRepo.setting.value.dashboardIconColor,
+              //     ),
+              //     onPressed: () async {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       if (!videoRepo
+              //           .homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       setState(() {
+              //         videoRepo.homeCon.value.paddingBottom = 0.0;
+              //       });
+              //       if (!videoRepo
+              //           .homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       if (currentUser.value.token != '') {
+              //         Navigator.pushReplacementNamed(
+              //           context,
+              //           "/my-profile",
+              //         );
+              //       } else {
+              //         Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) =>
+              //                 PasswordLoginView(userId: 0),
+              //           ),
+              //         );
+              //       }
+              //     },
+              //   ),
+              // ),
+
+              //   ],
+              //   currentIndex: 0, //optional, default as 0
+              //   selectedItemColor: Colors.purple, //Udoka: Colors.transparent,
+              //   onTap: (int i) async {
+              //     if (i == 0) {
+              //       if (!videoRepo.homeCon.value.showHomeLoader.value) {
+              //         if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //           videoRepo.homeCon.value.stopController(
+              //               videoRepo.homeCon.value.swiperIndex);
+              //         } else {
+              //           videoRepo.homeCon.value.stopController2(
+              //               videoRepo.homeCon.value.swiperIndex2);
+              //         }
+              //         videoRepo.userVideoObj.value.userId = 0;
+              //         videoRepo.userVideoObj.value.videoId = 0;
+              //         videoRepo.userVideoObj.value.name = "";
+              //         videoRepo.userVideoObj.notifyListeners();
+              //         videoRepo.homeCon.value.showHomeLoader.value = true;
+              //         videoRepo.homeCon.value.showHomeLoader
+              //             .notifyListeners();
+              //         await Future.delayed(
+              //           Duration(seconds: 2),
+              //         );
+
+              //         Navigator.of(context).pushReplacementNamed('/home');
+              //         videoRepo.homeCon.value.getVideos();
+              //       }
+              //     } else if (i == 1) {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+
+              //       Navigator.pushReplacementNamed(
+              //         context,
+              //         '/hash-videos',
+              //       );
+              //     } else if (i == 2) {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       setState(() {
+              //         videoRepo.homeCon.value.paddingBottom = 0.0;
+              //       });
+              //       if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       if (currentUser.value.token != '') {
+              //         videoRepo.isOnRecordingPage.value = true;
+              //         videoRepo.isOnRecordingPage.notifyListeners();
+              //         Navigator.pushReplacementNamed(
+              //             context, '/video-recorder');
+              //       } else {
+              //         Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => PasswordLoginView(userId: 0),
+              //           ),
+              //         );
+              //       }
+              //     } else if (i == 3) {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       Navigator.pushReplacementNamed(
+              //         context,
+              //         "/conversation",
+              //       );
+              //     } else if (i == 4) {
+              //       videoRepo.isOnHomePage.value = false;
+              //       videoRepo.isOnHomePage.notifyListeners();
+              //       if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       setState(() {
+              //         videoRepo.homeCon.value.paddingBottom = 0.0;
+              //       });
+              //       if (!videoRepo.homeCon.value.showFollowingPage.value) {
+              //         videoRepo.homeCon.value.stopController(
+              //             videoRepo.homeCon.value.swiperIndex);
+              //       } else {
+              //         videoRepo.homeCon.value.stopController2(
+              //             videoRepo.homeCon.value.swiperIndex2);
+              //       }
+              //       if (currentUser.value.token != '') {
+              //         Navigator.pushReplacementNamed(
+              //           context,
+              //           "/my-profile",
+              //         );
+              //       } else {
+              //         Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => PasswordLoginView(userId: 0),
+              //           ),
+              //         );
+              //       }
+              //     }
+              //   },
+              // )
+              ConvexAppBar(
+                  elevation: 0,
+                  color: Colors.black,
+                  backgroundColor:
+                      Colors.blue, //Udoka settingRepo.setting.value.navBgColor,
+                  curveSize: 90,
                   top: -20,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -504,6 +1001,7 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                   ),
                   items: [
                     TabItem(
+                      title: 'Home',
                       icon: ValueListenableBuilder(
                         valueListenable: videoRepo.homeCon.value.showHomeLoader,
                         builder: (context, bool homeLoader, _) {
@@ -511,29 +1009,36 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                               ? SvgPicture.asset(
                                   'assets/icons/home.svg',
                                   width: 28.0,
-                                  color: Colors.deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
+                                  color: Colors
+                                      .deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
                                 )
-                              : Helper.showLoaderSpinner(settingRepo.setting.value.dashboardIconColor!);
+                              : Helper.showLoaderSpinner(settingRepo
+                                  .setting.value.dashboardIconColor!);
                         },
                       ),
                     ),
                     TabItem(
+                      title: 'serach',
                       icon: IconButton(
                         padding: EdgeInsets.all(0),
-                        icon: SvgPicture.asset(
-                          'assets/icons/hash-tag.svg',
-                          width: 35.0,
-                          color: Colors.deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
-                        ),
+                        icon: Icon(Icons.search),
+                        // icon: SvgPicture.asset(
+                        //   'assets/icons/hash-tag.svg',
+                        //   width: 35.0,
+                        //   color: Colors
+                        //       .deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
+                        // ),
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
                           videoRepo.isOnHomePage.notifyListeners();
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
-
                           Navigator.pushReplacementNamed(
                             context,
                             '/hash-videos',
@@ -545,9 +1050,9 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       icon: IconButton(
                         padding: EdgeInsets.all(0),
                         icon: SvgPicture.asset(
-                          'assets/icons/create-video.svg',
+                          'assets/icons/button_shape.svg',
                           width: 50.0,
-                          color: settingRepo.setting.value.dashboardIconColor,
+                          //color: settingRepo.setting.value.dashboardIconColor,
                         ),
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
@@ -555,20 +1060,25 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                           setState(() {
                             videoRepo.homeCon.value.paddingBottom = 0.0;
                           });
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           if (currentUser.value.token != '') {
                             videoRepo.isOnRecordingPage.value = true;
                             videoRepo.isOnRecordingPage.notifyListeners();
-                            Navigator.pushReplacementNamed(context, '/video-recorder');
+                            Navigator.pushReplacementNamed(
+                                context, '/video-recorder');
                           } else {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PasswordLoginView(userId: 0),
+                                builder: (context) =>
+                                    PasswordLoginView(userId: 0),
                               ),
                             );
                           }
@@ -576,6 +1086,7 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       ),
                     ),
                     TabItem(
+                      title: 'inbox',
                       icon: ValueListenableBuilder(
                         valueListenable: videoRepo.unreadMessageCount,
                         builder: (context, int _messageCount, _) {
@@ -584,18 +1095,22 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             children: [
                               IconButton(
                                 padding: EdgeInsets.all(0),
-                                icon: SvgPicture.asset(
-                                  'assets/icons/chat.svg',
+                                icon: Image.asset(
+                                  'assets/icons/book.png',
                                   width: 30.0,
-                                  color: Colors.deepPurpleAccent, // Udoka settingRepo.setting.value.dashboardIconColor,
+                                  color: Colors
+                                      .black, // Udoka settingRepo.setting.value.dashboardIconColor,
                                 ),
                                 onPressed: () async {
                                   videoRepo.isOnHomePage.value = false;
                                   videoRepo.isOnHomePage.notifyListeners();
-                                  if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                                    videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                                  if (!videoRepo
+                                      .homeCon.value.showFollowingPage.value) {
+                                    videoRepo.homeCon.value.stopController(
+                                        videoRepo.homeCon.value.swiperIndex);
                                   } else {
-                                    videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                                    videoRepo.homeCon.value.stopController2(
+                                        videoRepo.homeCon.value.swiperIndex2);
                                   }
                                   if (currentUser.value.token != '') {
                                     Navigator.pushReplacementNamed(
@@ -606,7 +1121,9 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => PasswordLoginView(userId: 0),
+                                        builder: (context) =>
+                                        LoginView(),
+                                           // PasswordLoginView(userId: 0),
                                       ),
                                     );
                                   }
@@ -619,16 +1136,20 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                                     ? Transform.translate(
                                         offset: Offset(-2, -6),
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 2, vertical: 0),
                                           decoration: BoxDecoration(
-                                            color: settingRepo.setting.value.textColor,
-                                            borderRadius: BorderRadius.circular(100),
+                                            color: settingRepo
+                                                .setting.value.textColor,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
                                           ),
                                           child: Center(
                                             child: Text(
                                               _messageCount.toString(),
                                               style: TextStyle(
-                                                color: settingRepo.setting.value.accentColor,
+                                                color: settingRepo
+                                                    .setting.value.accentColor,
                                                 fontSize: 8,
                                               ),
                                             ),
@@ -645,28 +1166,36 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       ),
                     ),
                     TabItem(
+                      title: 'Me',
                       icon: IconButton(
                         padding: EdgeInsets.all(0),
                         icon: SvgPicture.asset(
                           'assets/icons/user.svg',
                           width: 30.0,
-                          color: Colors.deepPurpleAccent, // Udoka(the follow come color i removed) settingRepo.setting.value.dashboardIconColor,
+                          color: Colors
+                              .deepPurpleAccent, // Udoka(the follow come color i removed) settingRepo.setting.value.dashboardIconColor,
                         ),
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
                           videoRepo.isOnHomePage.notifyListeners();
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           setState(() {
                             videoRepo.homeCon.value.paddingBottom = 0.0;
                           });
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           if (currentUser.value.token != '') {
                             Navigator.pushReplacementNamed(
@@ -677,7 +1206,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PasswordLoginView(userId: 0),
+                                builder: (context) =>
+                                    PasswordLoginView(userId: 0),
                               ),
                             );
                           }
@@ -691,16 +1221,19 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                     if (i == 0) {
                       if (!videoRepo.homeCon.value.showHomeLoader.value) {
                         if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                          videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          videoRepo.homeCon.value.stopController(
+                              videoRepo.homeCon.value.swiperIndex);
                         } else {
-                          videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                          videoRepo.homeCon.value.stopController2(
+                              videoRepo.homeCon.value.swiperIndex2);
                         }
                         videoRepo.userVideoObj.value.userId = 0;
                         videoRepo.userVideoObj.value.videoId = 0;
                         videoRepo.userVideoObj.value.name = "";
                         videoRepo.userVideoObj.notifyListeners();
                         videoRepo.homeCon.value.showHomeLoader.value = true;
-                        videoRepo.homeCon.value.showHomeLoader.notifyListeners();
+                        videoRepo.homeCon.value.showHomeLoader
+                            .notifyListeners();
                         await Future.delayed(
                           Duration(seconds: 2),
                         );
@@ -712,9 +1245,11 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       videoRepo.isOnHomePage.value = false;
                       videoRepo.isOnHomePage.notifyListeners();
                       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
                       } else {
-                        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
                       }
 
                       Navigator.pushReplacementNamed(
@@ -728,14 +1263,17 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         videoRepo.homeCon.value.paddingBottom = 0.0;
                       });
                       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
                       } else {
-                        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
                       }
                       if (currentUser.value.token != '') {
                         videoRepo.isOnRecordingPage.value = true;
                         videoRepo.isOnRecordingPage.notifyListeners();
-                        Navigator.pushReplacementNamed(context, '/video-recorder');
+                        Navigator.pushReplacementNamed(
+                            context, '/video-recorder');
                       } else {
                         Navigator.pushReplacement(
                           context,
@@ -748,9 +1286,11 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       videoRepo.isOnHomePage.value = false;
                       videoRepo.isOnHomePage.notifyListeners();
                       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
                       } else {
-                        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
                       }
                       Navigator.pushReplacementNamed(
                         context,
@@ -760,17 +1300,21 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                       videoRepo.isOnHomePage.value = false;
                       videoRepo.isOnHomePage.notifyListeners();
                       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
                       } else {
-                        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
                       }
                       setState(() {
                         videoRepo.homeCon.value.paddingBottom = 0.0;
                       });
                       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
                       } else {
-                        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
                       }
                       if (currentUser.value.token != '') {
                         Navigator.pushReplacementNamed(
@@ -822,27 +1366,36 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             alignment: Alignment.bottomCenter,
                             padding: EdgeInsets.all(0),
                             icon: SvgPicture.asset(
-                              homeLoader ? 'assets/icons/reloading.gif' : 'assets/icons/home.svg',
+                              homeLoader
+                                  ? 'assets/icons/reloading.gif'
+                                  : 'assets/icons/home.svg',
                               width: 28.0,
-                              color: settingRepo.setting.value.dashboardIconColor,
+                              color:
+                                  settingRepo.setting.value.dashboardIconColor,
                             ),
                             onPressed: () async {
                               if (!homeLoader) {
-                                if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                                  videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                                if (!videoRepo
+                                    .homeCon.value.showFollowingPage.value) {
+                                  videoRepo.homeCon.value.stopController(
+                                      videoRepo.homeCon.value.swiperIndex);
                                 } else {
-                                  videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                                  videoRepo.homeCon.value.stopController2(
+                                      videoRepo.homeCon.value.swiperIndex2);
                                 }
                                 videoRepo.userVideoObj.value.userId = 0;
                                 videoRepo.userVideoObj.value.videoId = 0;
                                 videoRepo.userVideoObj.value.name = "";
                                 videoRepo.userVideoObj.notifyListeners();
-                                videoRepo.homeCon.value.showHomeLoader.value = true;
-                                videoRepo.homeCon.value.showHomeLoader.notifyListeners();
+                                videoRepo.homeCon.value.showHomeLoader.value =
+                                    true;
+                                videoRepo.homeCon.value.showHomeLoader
+                                    .notifyListeners();
                                 await Future.delayed(
                                   Duration(seconds: 2),
                                 );
-                                Navigator.of(context).pushReplacementNamed('/home');
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/home');
                                 videoRepo.homeCon.value.getVideos();
                               }
                             },
@@ -866,10 +1419,13 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
                           videoRepo.isOnHomePage.notifyListeners();
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
 
                           Navigator.pushReplacementNamed(
@@ -896,20 +1452,24 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                           videoRepo.homeCon.value.paddingBottom = 0.0;
                         });
                         if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                          videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          videoRepo.homeCon.value.stopController(
+                              videoRepo.homeCon.value.swiperIndex);
                         } else {
-                          videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                          videoRepo.homeCon.value.stopController2(
+                              videoRepo.homeCon.value.swiperIndex2);
                         }
                         if (currentUser.value.token != '') {
                           videoRepo.isOnRecordingPage.value = true;
                           videoRepo.isOnRecordingPage.notifyListeners();
                           dispose();
-                          Navigator.pushReplacementNamed(context, '/video-recorder');
+                          Navigator.pushReplacementNamed(
+                              context, '/video-recorder');
                         } else {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PasswordLoginView(userId: 0),
+                              builder: (context) =>
+                                  PasswordLoginView(userId: 0),
                             ),
                           );
                         }
@@ -931,10 +1491,13 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
                           videoRepo.isOnHomePage.notifyListeners();
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           setState(() {
                             videoRepo.homeCon.value.paddingBottom = 0.0;
@@ -949,7 +1512,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PasswordLoginView(userId: 0),
+                                builder: (context) =>
+                                    PasswordLoginView(userId: 0),
                               ),
                             );
                           }
@@ -972,18 +1536,24 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         onPressed: () async {
                           videoRepo.isOnHomePage.value = false;
                           videoRepo.isOnHomePage.notifyListeners();
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           setState(() {
                             videoRepo.homeCon.value.paddingBottom = 0.0;
                           });
-                          if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                            videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                          if (!videoRepo
+                              .homeCon.value.showFollowingPage.value) {
+                            videoRepo.homeCon.value.stopController(
+                                videoRepo.homeCon.value.swiperIndex);
                           } else {
-                            videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                            videoRepo.homeCon.value.stopController2(
+                                videoRepo.homeCon.value.swiperIndex2);
                           }
                           if (currentUser.value.token != "") {
                             Navigator.pushReplacementNamed(
@@ -994,7 +1564,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PasswordLoginView(userId: 0),
+                                builder: (context) =>
+                                    PasswordLoginView(userId: 0),
                               ),
                             );
                           }
@@ -1023,12 +1594,21 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
 
       Video? videoObj = Video();
       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-        videoObj = (videosData.value.videos.length > 0) ? videosData.value.videos.elementAt(videoRepo.homeCon.value.videoIndex) : null;
+        videoObj = (videosData.value.videos.length > 0)
+            ? videosData.value.videos
+                .elementAt(videoRepo.homeCon.value.videoIndex)
+            : null;
       } else {
-        videoObj = (followingUsersVideoData.value.videos.length > 0) ? followingUsersVideoData.value.videos.elementAt(videoRepo.homeCon.value.videoIndex) : videoObj;
+        videoObj = (followingUsersVideoData.value.videos.length > 0)
+            ? followingUsersVideoData.value.videos
+                .elementAt(videoRepo.homeCon.value.videoIndex)
+            : videoObj;
 
         if (videoObj == Video()) {
-          videoObj = (videosData.value.videos.length > 0) ? videosData.value.videos.elementAt(videoRepo.homeCon.value.videoIndex) : null;
+          videoObj = (videosData.value.videos.length > 0)
+              ? videosData.value.videos
+                  .elementAt(videoRepo.homeCon.value.videoIndex)
+              : null;
         }
       }
       Widget commentField(editCommentIndex) {
@@ -1058,7 +1638,10 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
               Timer(
                   Duration(milliseconds: 200),
                   () => setState(() {
-                        hgt = EdgeInsets.fromWindowPadding(WidgetsBinding.instance.window.viewInsets, WidgetsBinding.instance.window.devicePixelRatio).bottom;
+                        hgt = EdgeInsets.fromWindowPadding(
+                                WidgetsBinding.instance.window.viewInsets,
+                                WidgetsBinding.instance.window.devicePixelRatio)
+                            .bottom;
                       }));
             });
           },
@@ -1088,20 +1671,28 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
               borderRadius: BorderRadius.circular(50),
             ),
             hintText: "Add a comment",
-            hintStyle: TextStyle(color: settingRepo.setting.value.textColor!.withOpacity(0.5), fontSize: 14),
+            hintStyle: TextStyle(
+                color: settingRepo.setting.value.textColor!.withOpacity(0.5),
+                fontSize: 14),
             suffixIcon: InkWell(
               onTap: () {
                 setState(() {
                   videoRepo.homeCon.value.textFieldMoveToUp = false;
                 });
-                if (videoRepo.homeCon.value.commentValue.trim() != '' && videoRepo.homeCon.value.commentValue != null) {
+                if (videoRepo.homeCon.value.commentValue.trim() != '' &&
+                    videoRepo.homeCon.value.commentValue != null) {
                   editCommentIndex > 0
-                      ? videoRepo.homeCon.value.editComment(videoRepo.homeCon.value.editedComment.value - 1, videoObj!.videoId, context)
-                      : videoRepo.homeCon.value.addComment(videoObj!.videoId, context);
+                      ? videoRepo.homeCon.value.editComment(
+                          videoRepo.homeCon.value.editedComment.value - 1,
+                          videoObj!.videoId,
+                          context)
+                      : videoRepo.homeCon.value
+                          .addComment(videoObj!.videoId, context);
                 }
               },
               child: Padding(
-                padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10, right: 15),
+                padding: const EdgeInsets.only(
+                    left: 0, top: 10, bottom: 10, right: 15),
                 child: SvgPicture.asset(
                   'assets/icons/send.svg',
                   width: 15,
@@ -1135,16 +1726,25 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                           children: [
                             LikeButton(
                               size: 25,
-                              circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
+                              circleColor: CircleColor(
+                                  start: Colors.transparent,
+                                  end: Colors.transparent),
                               bubblesColor: BubblesColor(
-                                dotPrimaryColor: videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
-                                dotSecondaryColor: videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
+                                dotPrimaryColor: videoObj.isLike
+                                    ? Color(0xffee1d52)
+                                    : Color(0xffffffff),
+                                dotSecondaryColor: videoObj.isLike
+                                    ? Color(0xffee1d52)
+                                    : Color(0xffffffff),
                               ),
                               likeBuilder: (bool isLiked) {
                                 return SvgPicture.asset(
                                   'assets/icons/liked.svg',
                                   width: 28.0,
-                                  color: videoObj!.isLike ? Color(0xffee1d52) : settingRepo.setting.value.dashboardIconColor,
+                                  color: videoObj!.isLike
+                                      ? Color(0xffee1d52)
+                                      : settingRepo
+                                          .setting.value.dashboardIconColor,
                                 );
                               },
                               onTap: onLikeButtonTapped,
@@ -1173,7 +1773,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                               width: 5,
                             ),
                             Text(
-                              Helper.formatter(videoObj.totalComments.toString()),
+                              Helper.formatter(
+                                  videoObj.totalComments.toString()),
                               style: TextStyle(
                                 color: settingRepo.setting.value.textColor,
                                 fontSize: 12,
@@ -1204,9 +1805,12 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         ),
                         InkWell(
                           onTap: () {
-                            Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                            String vId = stringToBase64.encode(videoObj!.videoId.toString());
-                            Share.share('${GlobalConfiguration().get('base_url')}$vId');
+                            Codec<String, String> stringToBase64 =
+                                utf8.fuse(base64);
+                            String vId = stringToBase64
+                                .encode(videoObj!.videoId.toString());
+                            Share.share(
+                                '${GlobalConfiguration().get('base_url')}$vId');
                           },
                           child: Row(
                             children: [
@@ -1239,7 +1843,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                   )
                 ],
               ),
-              maxHeight: config.App(context).appHeight(_keyboardVisible ? 50 : 70),
+              maxHeight:
+                  config.App(context).appHeight(_keyboardVisible ? 50 : 70),
               onPanelOpened: () async {
                 if (videoRepo.homeCon.value.bannerShowOn.indexOf("1") > -1) {
                   setState(() {
@@ -1252,7 +1857,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                 videoRepo.homeCon.value.showBannerAd.notifyListeners();
                 setState(() {
                   if (videoRepo.homeCon.value.bannerShowOn.indexOf("1") > -1) {
-                    videoRepo.homeCon.value.paddingBottom = Platform.isAndroid ? 50.0 : 80.0;
+                    videoRepo.homeCon.value.paddingBottom =
+                        Platform.isAndroid ? 50.0 : 80.0;
                   }
                 });
                 videoRepo.homeCon.value.textFieldMoveToUp = false;
@@ -1263,7 +1869,8 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                 videoRepo.homeCon.value.comments = [];
                 // });
                 videoRepo.homeCon.notifyListeners();
-                videoRepo.homeCon.value.commentController = new TextEditingController(text: "");
+                videoRepo.homeCon.value.commentController =
+                    new TextEditingController(text: "");
                 videoRepo.homeCon.value.loadMoreUpdateView.value = false;
                 videoRepo.homeCon.value.loadMoreUpdateView.notifyListeners();
               },
@@ -1277,1053 +1884,1498 @@ class _DashboardViewState extends StateMVC<DashboardView> with SingleTickerProvi
                         children: [
                           Expanded(
                               child: ValueListenableBuilder(
-  valueListenable: videoRepo.homeCon.value.commentsLoader,
-  builder: (context, bool loader, _) {
-    return Stack(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: settingRepo.setting.value.bgColor,
-          ),
-          child: (videoRepo.homeCon.value.comments.length > 0)
-              ? Padding(
-                  padding: videoRepo.homeCon.value.comments.length > 5
-                      ? currentUser.value.token != ''
-                          ? EdgeInsets.only(bottom: 10)
-                          : EdgeInsets.zero
-                      : EdgeInsets.zero,
-                  child: ListView.separated(
-                    controller: videoRepo.homeCon.value.scrollController,
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    itemCount: videoRepo.homeCon.value.comments.length,
-                    itemBuilder: (context, i) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: config.App(context).appWidth(25),
-                              child: InkWell(
-                                onTap: () {
-                                  videoRepo.isOnHomePage.value = false;
-                                  videoRepo.isOnHomePage.notifyListeners();
-                                  videoRepo.homeCon.value.hideBottomBar.value = false;
-                                  videoRepo.homeCon.value.hideBottomBar.notifyListeners();
-                                  videoRepo.homeCon.notifyListeners();
-                                  if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                                    videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-                                  } else {
-                                    videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-                                  }
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => videoRepo.homeCon.value.comments.elementAt(i).userId == userRepo.currentUser.value.userId
-                                          ? MyProfileView()
-                                          : UsersProfileView(
-                                              userId: videoRepo.homeCon.value.comments.elementAt(i).userId,
-                                            ),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  width: 60.0,
-                                  height: 60.0,
-                                  decoration: new BoxDecoration(
-                                    border: Border.all(color: settingRepo.setting.value.textColor!, width: 2),
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: videoRepo.homeCon.value.comments.elementAt(i).userDp.isNotEmpty
-                                          ? CachedNetworkImageProvider(
-                                              videoRepo.homeCon.value.comments.elementAt(i).userDp,
-                                              maxWidth: 120,
-                                              maxHeight: 120,
-                                            )
-                                          : AssetImage(
-                                              "assets/images/video-logo.png",
-                                            ) as ImageProvider,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          videoRepo.isOnHomePage.value = false;
-                                          videoRepo.isOnHomePage.notifyListeners();
-                                          videoRepo.isOnHomePage.value = false;
-                                          videoRepo.isOnHomePage.notifyListeners();
-                                          videoRepo.homeCon.value.hideBottomBar.value = false;
-                                          videoRepo.homeCon.value.hideBottomBar.notifyListeners();
-                                          videoRepo.homeCon.notifyListeners();
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => videoRepo.homeCon.value.comments.elementAt(i).userId == userRepo.currentUser.value.userId
-                                                  ? MyProfileView()
-                                                  : UsersProfileView(
-                                                      userId: videoRepo.homeCon.value.comments.elementAt(i).userId,
+                                  valueListenable:
+                                      videoRepo.homeCon.value.commentsLoader,
+                                  builder: (context, bool loader, _) {
+                                    return Stack(
+                                      children: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: settingRepo
+                                                .setting.value.bgColor,
+                                          ),
+                                          child:
+                                              (videoRepo.homeCon.value.comments
+                                                          .length >
+                                                      0)
+                                                  ? Padding(
+                                                      padding: videoRepo
+                                                                  .homeCon
+                                                                  .value
+                                                                  .comments
+                                                                  .length >
+                                                              5
+                                                          ? currentUser.value
+                                                                      .token !=
+                                                                  ''
+                                                              ? EdgeInsets.only(
+                                                                  bottom: 10)
+                                                              : EdgeInsets.zero
+                                                          : EdgeInsets.zero,
+                                                      child: ListView.separated(
+                                                        controller: videoRepo
+                                                            .homeCon
+                                                            .value
+                                                            .scrollController,
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount: videoRepo
+                                                            .homeCon
+                                                            .value
+                                                            .comments
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, i) {
+                                                          return Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        10),
+                                                            child: Row(
+                                                              children: [
+                                                                Container(
+                                                                  width: config.App(
+                                                                          context)
+                                                                      .appWidth(
+                                                                          25),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap: () {
+                                                                      videoRepo
+                                                                          .isOnHomePage
+                                                                          .value = false;
+                                                                      videoRepo
+                                                                          .isOnHomePage
+                                                                          .notifyListeners();
+                                                                      videoRepo
+                                                                          .homeCon
+                                                                          .value
+                                                                          .hideBottomBar
+                                                                          .value = false;
+                                                                      videoRepo
+                                                                          .homeCon
+                                                                          .value
+                                                                          .hideBottomBar
+                                                                          .notifyListeners();
+                                                                      videoRepo
+                                                                          .homeCon
+                                                                          .notifyListeners();
+                                                                      if (!videoRepo
+                                                                          .homeCon
+                                                                          .value
+                                                                          .showFollowingPage
+                                                                          .value) {
+                                                                        videoRepo
+                                                                            .homeCon
+                                                                            .value
+                                                                            .stopController(videoRepo.homeCon.value.swiperIndex);
+                                                                      } else {
+                                                                        videoRepo
+                                                                            .homeCon
+                                                                            .value
+                                                                            .stopController2(videoRepo.homeCon.value.swiperIndex2);
+                                                                      }
+                                                                      Navigator
+                                                                          .pushReplacement(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) => videoRepo.homeCon.value.comments.elementAt(i).userId == userRepo.currentUser.value.userId
+                                                                              ? MyProfileView()
+                                                                              : UsersProfileView(
+                                                                                  userId: videoRepo.homeCon.value.comments.elementAt(i).userId,
+                                                                                ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          60.0,
+                                                                      height:
+                                                                          60.0,
+                                                                      decoration:
+                                                                          new BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                settingRepo.setting.value.textColor!,
+                                                                            width: 2),
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        image:
+                                                                            new DecorationImage(
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                          image: videoRepo.homeCon.value.comments.elementAt(i).userDp.isNotEmpty
+                                                                              ? CachedNetworkImageProvider(
+                                                                                  videoRepo.homeCon.value.comments.elementAt(i).userDp,
+                                                                                  maxWidth: 120,
+                                                                                  maxHeight: 120,
+                                                                                )
+                                                                              : AssetImage(
+                                                                                  "assets/images/video-logo.png",
+                                                                                ) as ImageProvider,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              videoRepo.isOnHomePage.value = false;
+                                                                              videoRepo.isOnHomePage.notifyListeners();
+                                                                              videoRepo.isOnHomePage.value = false;
+                                                                              videoRepo.isOnHomePage.notifyListeners();
+                                                                              videoRepo.homeCon.value.hideBottomBar.value = false;
+                                                                              videoRepo.homeCon.value.hideBottomBar.notifyListeners();
+                                                                              videoRepo.homeCon.notifyListeners();
+                                                                              Navigator.pushReplacement(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                  builder: (context) => videoRepo.homeCon.value.comments.elementAt(i).userId == userRepo.currentUser.value.userId
+                                                                                      ? MyProfileView()
+                                                                                      : UsersProfileView(
+                                                                                          userId: videoRepo.homeCon.value.comments.elementAt(i).userId,
+                                                                                        ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                Text(
+                                                                                  videoRepo.homeCon.value.comments.elementAt(i).userName,
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    color: settingRepo.setting.value.textColor,
+                                                                                    fontSize: 18.0,
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 5,
+                                                                                ),
+                                                                                videoRepo.homeCon.value.comments.elementAt(i).isVerified == true
+                                                                                    ? Icon(
+                                                                                        Icons.verified,
+                                                                                        color: settingRepo.setting.value.accentColor,
+                                                                                        size: 16,
+                                                                                      )
+                                                                                    : Container(),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          userRepo.currentUser.value.userId == videoRepo.homeCon.value.comments.elementAt(i).userId || userRepo.currentUser.value.userId == videoObj!.userId
+                                                                              ? Container(
+                                                                                  width: 50,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                                                                        child: Text(
+                                                                                          videoRepo.homeCon.value.comments.elementAt(i).time,
+                                                                                          style: TextStyle(
+                                                                                            color: settingRepo.setting.value.textColor!.withOpacity(0.5),
+                                                                                            fontSize: 12.0,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        height: 20,
+                                                                                        width: 18,
+                                                                                        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 0),
+                                                                                        child: Center(
+                                                                                          child: PopupMenuButton<int>(
+                                                                                              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                                                                              color: settingRepo.setting.value.bgShade,
+                                                                                              icon: Icon(
+                                                                                                Icons.more_vert,
+                                                                                                size: 18,
+                                                                                                color: settingRepo.setting.value.textColor!.withOpacity(0.5),
+                                                                                              ),
+                                                                                              onSelected: (int) {
+                                                                                                if (int == 0) {
+                                                                                                  homeCon.value.onEditComment(i + 1, context);
+                                                                                                } else {
+                                                                                                  videoRepo.homeCon.value.showDeleteAlert(context, "Delete Confirmation", "Do you realy want to delete this comment", videoRepo.homeCon.value.comments.elementAt(i).commentId, videoObj!.videoId);
+                                                                                                }
+                                                                                              },
+                                                                                              itemBuilder: (context) {
+                                                                                                return userRepo.currentUser.value.userId == videoRepo.homeCon.value.comments.elementAt(i).userId
+                                                                                                    ? [
+                                                                                                        PopupMenuItem(
+                                                                                                          height: 15,
+                                                                                                          value: 0,
+                                                                                                          child: Padding(
+                                                                                                            padding: const EdgeInsets.all(8.0),
+                                                                                                            child: Text(
+                                                                                                              "Edit",
+                                                                                                              style: TextStyle(
+                                                                                                                color: settingRepo.setting.value.textColor,
+                                                                                                                // fontFamily: 'RockWellStd',
+                                                                                                                fontSize: 12,
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        PopupMenuItem(
+                                                                                                          height: 15,
+                                                                                                          value: 1,
+                                                                                                          child: Padding(
+                                                                                                            padding: const EdgeInsets.all(8.0),
+                                                                                                            child: Text(
+                                                                                                              "Delete",
+                                                                                                              style: TextStyle(
+                                                                                                                color: settingRepo.setting.value.textColor,
+                                                                                                                fontSize: 12,
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        )
+                                                                                                      ]
+                                                                                                    : [
+                                                                                                        PopupMenuItem(
+                                                                                                          height: 15,
+                                                                                                          value: 1,
+                                                                                                          child: Text(
+                                                                                                            "Delete",
+                                                                                                            style: TextStyle(
+                                                                                                              color: settingRepo.setting.value.textColor,
+                                                                                                              // fontFamily: 'RockWellStd',
+                                                                                                              fontSize: 12,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        )
+                                                                                                      ];
+                                                                                              }),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                )
+                                                                              : Container(
+                                                                                  padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                                                                  child: Text(
+                                                                                    videoRepo.homeCon.value.comments.elementAt(i).time,
+                                                                                    style: TextStyle(
+                                                                                      color: settingRepo.setting.value.textColor!.withOpacity(0.5),
+                                                                                      fontSize: 12.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        videoRepo
+                                                                            .homeCon
+                                                                            .value
+                                                                            .comments
+                                                                            .elementAt(i)
+                                                                            .comment,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color: settingRepo
+                                                                              .setting
+                                                                              .value
+                                                                              .textColor,
+                                                                          fontSize:
+                                                                              12.0,
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                        separatorBuilder:
+                                                            (context, index) {
+                                                          return Divider(
+                                                            color: Colors.white,
+                                                            thickness: 0.1,
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                  : (videoObj!.totalComments >
+                                                          0)
+                                                      ? SkeletonLoader(
+                                                          builder: Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              horizontal: 15,
+                                                              vertical: 10,
+                                                            ),
+                                                            child: Row(
+                                                              children: <Widget>[
+                                                                CircleAvatar(
+                                                                  backgroundColor:
+                                                                      settingRepo
+                                                                          .setting
+                                                                          .value
+                                                                          .textColor,
+                                                                  radius: 18,
+                                                                ),
+                                                                SizedBox(
+                                                                    width: 20),
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    children: <Widget>[
+                                                                      Align(
+                                                                        alignment:
+                                                                            Alignment.topLeft,
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              8,
+                                                                          width:
+                                                                              80,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              10),
+                                                                      Container(
+                                                                        width: double
+                                                                            .infinity,
+                                                                        height:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              4),
+                                                                      Container(
+                                                                        width: double
+                                                                            .infinity,
+                                                                        height:
+                                                                            8,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              15),
+                                                                      Align(
+                                                                        alignment:
+                                                                            Alignment.topLeft,
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              50,
+                                                                          height:
+                                                                              9,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          items: videoObj
+                                                                      .totalComments >
+                                                                  3
+                                                              ? 3
+                                                              : videoObj
+                                                                  .totalComments,
+                                                          period: Duration(
+                                                              seconds: 1),
+                                                          highlightColor:
+                                                              Colors.white60,
+                                                          direction:
+                                                              SkeletonDirection
+                                                                  .ltr,
+                                                        )
+                                                      : Center(
+                                                          child: Text(
+                                                            "No comment available",
+                                                            style: TextStyle(
+                                                                color: settingRepo
+                                                                    .setting
+                                                                    .value
+                                                                    .textColor!
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                fontSize: 17,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                        ),
+                                        loader
+                                            ? Helper.showLoaderSpinner(
+                                                Colors.white)
+                                            : SizedBox(
+                                                height: 0,
+                                              )
+                                      ],
+                                    );
+                                  })),
+                          Container(
+                            height: 0.1,
+                            color: settingRepo.setting.value.textColor!
+                                .withOpacity(0.5),
+                          ),
+                          currentUser.value.token != ''
+                              ? Container(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  height: 100,
+                                  width: config.App(context).appWidth(100),
+                                  child: Center(
+                                    child: ValueListenableBuilder(
+                                        valueListenable: videoRepo
+                                            .homeCon.value.editedComment,
+                                        builder:
+                                            (context, int editCommentIndex, _) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: config.App(context)
+                                                    .appWidth(25),
+                                                child: Center(
+                                                  child: Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100),
+                                                      child: userRepo
+                                                                      .currentUser
+                                                                      .value
+                                                                      .userDP !=
+                                                                  null &&
+                                                              userRepo
+                                                                      .currentUser
+                                                                      .value
+                                                                      .userDP !=
+                                                                  ""
+                                                          ? CachedNetworkImage(
+                                                              imageUrl: userRepo
+                                                                  .currentUser
+                                                                  .value
+                                                                  .userDP,
+                                                              placeholder:
+                                                                  (context,
+                                                                          url) =>
+                                                                      Center(
+                                                                child: Helper
+                                                                    .showLoaderSpinner(
+                                                                        Colors
+                                                                            .white),
+                                                              ),
+                                                              fit: BoxFit.fill,
+                                                            )
+                                                          : Image.asset(
+                                                              "assets/images/video-logo.png",
+                                                              width: 40,
+                                                              height: 40,
+                                                            ),
                                                     ),
-                                            ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  width: config.App(context)
+                                                      .appWidth(70),
+                                                  child: commentField(
+                                                      editCommentIndex),
+                                                ),
+                                              ),
+                                            ],
                                           );
+                                        }),
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 0,
+                                ),
+                        ],
+                      );
+                    }),
+              ),
+              body: ValueListenableBuilder(
+                  valueListenable: videoRepo.homeCon.value.showFollowingPage,
+                  builder: (context, bool show, _) {
+                    return !show
+                        ? ValueListenableBuilder(
+                            valueListenable: videosData,
+                            builder: (context, VideoModel video, _) {
+                              return Stack(
+                                children: <Widget>[
+                                  Swiper(
+                                    controller: videoRepo.homeCon.value
+                                        .swipeController as SwiperController,
+                                    loop: false,
+                                    index: videoRepo.homeCon.value.swiperIndex,
+                                    control: new SwiperControl(
+                                      color: Colors.transparent,
+                                    ),
+                                    onIndexChanged: (index) {
+                                      print("onIndexChanged $index");
+                                      if (videoRepo.homeCon.value.swiperIndex >
+                                          index) {
+                                        print("Prev Code");
+                                        videoRepo.homeCon.value
+                                            .previousVideo(index);
+                                      } else {
+                                        print("Next Code");
+                                        videoRepo.homeCon.value
+                                            .nextVideo(index);
+                                      }
+                                      videoRepo.homeCon.value
+                                          .updateSwiperIndex(index);
+                                      if (video.videos.length - index == 3) {
+                                        videoRepo.homeCon.value
+                                            .listenForMoreVideos()
+                                            .whenComplete(() => unawaited(
+                                                videoRepo.homeCon.value
+                                                    .preCacheVideoThumbs()));
+                                      }
+                                    },
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      print("Swiper index $index");
+                                      return GestureDetector(
+                                        onTap: () {
+                                          print("click Played");
+                                          setState(() {
+                                            videoRepo.homeCon.value.onTap =
+                                                true;
+                                            videoRepo.homeCon.notifyListeners();
+                                            if (videoRepo.homeCon.value
+                                                .videoController(videoRepo
+                                                    .homeCon.value.swiperIndex)
+                                                .value
+                                                .isPlaying) {
+                                              videoRepo.homeCon.value
+                                                  .stopController(videoRepo
+                                                      .homeCon
+                                                      .value
+                                                      .swiperIndex);
+                                            } else {
+                                              // If the video is paused, play it.
+                                              videoRepo.homeCon.value
+                                                  .playController(videoRepo
+                                                      .homeCon
+                                                      .value
+                                                      .swiperIndex);
+                                            }
+                                          });
                                         },
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              videoRepo.homeCon.value.comments.elementAt(i).userName,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: settingRepo.setting.value.textColor,
-                                                fontSize: 18.0,
+                                        child: Stack(
+                                          fit: StackFit.loose,
+                                          children: <Widget>[
+                                            Container(
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Center(
+                                                child: Container(
+                                                  color: settingRepo
+                                                      .setting.value.bgColor,
+                                                  child: VideoPlayerWidget(
+                                                      videoRepo.homeCon.value
+                                                          .videoController(
+                                                              index),
+                                                      video.videos
+                                                          .elementAt(index),
+                                                      videoRepo.homeCon.value
+                                                              .initializeVideoPlayerFutures[
+                                                          video.videos
+                                                              .elementAt(index)
+                                                              .url]),
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 5,
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                // Top section
+                                                // Middle expanded
+                                                Container(
+                                                  padding: new EdgeInsets.only(
+                                                    bottom: videoRepo
+                                                            .homeCon
+                                                            .value
+                                                            .paddingBottom +
+                                                        MediaQuery.of(context)
+                                                            .padding
+                                                            .bottom +
+                                                        (Platform.isIOS &&
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .devicePixelRatio >=
+                                                                    2
+                                                            ? 38
+                                                            : MediaQuery.of(context)
+                                                                        .viewPadding
+                                                                        .bottom >
+                                                                    0
+                                                                ? 13
+                                                                : MediaQuery.of(context).devicePixelRatio >
+                                                                            2.125 &&
+                                                                        !Platform
+                                                                            .isIOS
+                                                                    ? 18
+                                                                    : !Platform
+                                                                            .isIOS
+                                                                        ? 3
+                                                                        : 0),
+                                                  ),
+                                                  child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: <Widget>[
+                                                        VideoDescription(
+                                                          video.videos
+                                                              .elementAt(index),
+                                                          videoRepo.homeCon
+                                                              .value.pc3,
+                                                        ),
+                                                        sidebar(index, video)
+                                                      ]),
+                                                ),
+                                                SizedBox(
+                                                  height: 70.0,
+                                                ),
+                                              ],
                                             ),
-                                            videoRepo.homeCon.value.comments.elementAt(i).isVerified == true
-                                                ? Icon(
-                                                    Icons.verified,
-                                                    color: settingRepo.setting.value.accentColor,
-                                                    size: 16,
+                                            (videoRepo.homeCon.value
+                                                            .swiperIndex ==
+                                                        0 &&
+                                                    !videoRepo.homeCon.value
+                                                        .initializePage)
+                                                ? SafeArea(
+                                                    child: Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              4,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      color: Colors.transparent,
+                                                    ),
                                                   )
                                                 : Container(),
                                           ],
                                         ),
-                                      ),
-                                      userRepo.currentUser.value.userId == videoRepo.homeCon.value.comments.elementAt(i).userId ||
-                                              userRepo.currentUser.value.userId == videoObj!.userId
-                                          ? Container(
-                                              width: 50,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  Container(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                                    child: Text(
-                                                      videoRepo.homeCon.value.comments.elementAt(i).time,
-                                                      style: TextStyle(
-                                                        color: settingRepo.setting.value.textColor!.withOpacity(0.5),
-                                                        fontSize: 12.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    height: 20,
-                                                    width: 18,
-                                                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 0),
-                                                    child: Center(
-                                                      child: PopupMenuButton<int>(
-                                                          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                                          color: settingRepo.setting.value.bgShade,
+                                      );
+                                      // }
+                                    },
+                                    itemCount: video.videos.length,
+                                    scrollDirection: Axis.vertical,
+                                  ),
+                                  ValueListenableBuilder(
+                                      valueListenable: videoRepo.userVideoObj,
+                                      builder:
+                                          (context, UserVideoArgs value, _) {
+                                        return (value.userId == 0 ||
+                                                    value.userId == 0) &&
+                                                (value.videoId == 0 ||
+                                                    value.videoId == 0) &&
+                                                value.hashTag == ""
+                                            ? topSection(video)
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 40.0, bottom: 20),
+                                                child: Container(
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        flex: 0,
+                                                        child: IconButton(
                                                           icon: Icon(
-                                                            Icons.more_vert,
-                                                            size: 18,
-                                                            color: settingRepo.setting.value.textColor!.withOpacity(0.5),
+                                                            Icons
+                                                                .arrow_back_ios,
+                                                            color: Colors.white,
                                                           ),
-                                                          onSelected: (int) {
-                                                            if (int == 0) {
-                                                              homeCon.value.onEditComment(i + 1, context);
+                                                          onPressed: () async {
+                                                            if (value.videoId !=
+                                                                    0 &&
+                                                                value.userId ==
+                                                                    0) {
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .userId = 0;
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .videoId = 0;
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .hashTag = '';
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .name = '';
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .notifyListeners();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pushReplacementNamed(
+                                                                      '/home');
+                                                              videoRepo
+                                                                  .homeCon.value
+                                                                  .getVideos();
                                                             } else {
-                                                              videoRepo.homeCon.value.showDeleteAlert(
-                                                                  context,
-                                                                  "Delete Confirmation",
-                                                                  "Do you realy want to delete this comment",
-                                                                  videoRepo.homeCon.value.comments.elementAt(i).commentId,
-                                                                  videoObj!.videoId);
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .userId = 0;
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .videoId = 0;
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .name = '';
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .value
+                                                                  .hashTag = '';
+                                                              videoRepo
+                                                                  .userVideoObj
+                                                                  .notifyListeners();
+                                                              if (!videoRepo
+                                                                  .homeCon
+                                                                  .value
+                                                                  .showFollowingPage
+                                                                  .value) {
+                                                                videoRepo
+                                                                    .homeCon
+                                                                    .value
+                                                                    .stopController(videoRepo
+                                                                        .homeCon
+                                                                        .value
+                                                                        .swiperIndex);
+                                                              } else {
+                                                                videoRepo
+                                                                    .homeCon
+                                                                    .value
+                                                                    .stopController2(videoRepo
+                                                                        .homeCon
+                                                                        .value
+                                                                        .swiperIndex2);
+                                                              }
+                                                              // await videoRepo.homeCon.value.getFollowingUserVideos();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pushReplacementNamed(
+                                                                      '/home');
+                                                              videoRepo
+                                                                  .homeCon.value
+                                                                  .getVideos();
                                                             }
                                                           },
-                                                          itemBuilder: (context) {
-                                                            return userRepo.currentUser.value.userId == videoRepo.homeCon.value.comments.elementAt(i).userId
-                                                                ? [
-                                                                    PopupMenuItem(
-                                                                      height: 15,
-                                                                      value: 0,
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.all(8.0),
-                                                                        child: Text(
-                                                                          "Edit",
-                                                                          style: TextStyle(
-                                                                            color: settingRepo.setting.value.textColor,
-                                                                            // fontFamily: 'RockWellStd',
-                                                                            fontSize: 12,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    PopupMenuItem(
-                                                                      height: 15,
-                                                                      value: 1,
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.all(8.0),
-                                                                        child: Text(
-                                                                          "Delete",
-                                                                          style: TextStyle(
-                                                                            color: settingRepo.setting.value.textColor,
-                                                                            fontSize: 12,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ]
-                                                                : [
-                                                                    PopupMenuItem(
-                                                                      height: 15,
-                                                                      value: 1,
-                                                                      child: Text(
-                                                                        "Delete",
-                                                                        style: TextStyle(
-                                                                          color: settingRepo.setting.value.textColor,
-                                                                          // fontFamily: 'RockWellStd',
-                                                                          fontSize: 12,
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ];
-                                                          }),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child:
+                                                            Transform.translate(
+                                                          offset:
+                                                              Offset(-10, 0),
+                                                          child: Text(
+                                                            value.name != ""
+                                                                ? value.name +
+                                                                    " Videos"
+                                                                : value.userId !=
+                                                                        0
+                                                                    ? "My Videos"
+                                                                    : "",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 16),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                      }),
+                                ],
+                              );
+                            },
+                          )
+                        : ValueListenableBuilder(
+                            valueListenable: followingUsersVideoData,
+                            builder: (context, VideoModel video, _) {
+                              return Stack(
+                                children: <Widget>[
+                                  (video.videos.length > 0)
+                                      ? Swiper(
+                                          controller: videoRepo.homeCon.value
+                                                  .swipeController2
+                                              as SwiperController,
+                                          loop: false,
+                                          index: videoRepo
+                                              .homeCon.value.swiperIndex2,
+                                          control: new SwiperControl(
+                                            color: Colors.transparent,
+                                          ),
+                                          onIndexChanged: (index) {
+                                            if (videoRepo.homeCon.value
+                                                    .swiperIndex2 >
+                                                index) {
+                                              videoRepo.homeCon.value
+                                                  .previousVideo2(index);
+                                            } else {
+                                              videoRepo.homeCon.value
+                                                  .nextVideo2(index);
+                                            }
+                                            videoRepo.homeCon.value
+                                                .updateSwiperIndex2(index);
+                                            if (video.videos.length - index ==
+                                                3) {
+                                              videoRepo.homeCon.value
+                                                  .listenForMoreUserFollowingVideos();
+                                            }
+                                          },
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            print("Swiper index $index");
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  // If the video is playing, pause it.
+                                                  if (videoRepo.homeCon.value
+                                                      .videoController2(
+                                                          videoRepo
+                                                              .homeCon
+                                                              .value
+                                                              .swiperIndex2)
+                                                      .value
+                                                      .isPlaying) {
+                                                    videoRepo.homeCon.value
+                                                        .stopController2(
+                                                            videoRepo
+                                                                .homeCon
+                                                                .value
+                                                                .swiperIndex2);
+                                                  } else {
+                                                    // If the video is paused, play it.
+                                                    videoRepo.homeCon.value
+                                                        .playController2(
+                                                            videoRepo
+                                                                .homeCon
+                                                                .value
+                                                                .swiperIndex2);
+                                                  }
+                                                });
+                                              },
+                                              child: new Stack(
+                                                fit: StackFit.loose,
+                                                children: <Widget>[
+                                                  Center(
+                                                    child: Container(
+                                                      color: Colors.black,
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minWidth: 100,
+                                                              maxWidth: 500),
+                                                      child: VideoPlayerWidget(
+                                                          videoRepo
+                                                              .homeCon.value
+                                                              .videoController2(
+                                                                  index),
+                                                          video.videos
+                                                              .elementAt(index),
+                                                          videoRepo
+                                                                  .homeCon
+                                                                  .value
+                                                                  .initializeVideoPlayerFutures2[
+                                                              video.videos
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .url]),
                                                     ),
                                                   ),
+                                                  Stack(
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: <Widget>[
+                                                          // Top section
+                                                          // Middle expanded
+                                                          Container(
+                                                            padding:
+                                                                new EdgeInsets
+                                                                    .only(
+                                                              bottom: videoRepo
+                                                                      .homeCon
+                                                                      .value
+                                                                      .paddingBottom +
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .padding
+                                                                      .bottom +
+                                                                  (Platform.isIOS &&
+                                                                          MediaQuery.of(context).devicePixelRatio >=
+                                                                              2
+                                                                      ? 38
+                                                                      : MediaQuery.of(context).viewPadding.bottom >
+                                                                              0
+                                                                          ? 13
+                                                                          : MediaQuery.of(context).devicePixelRatio > 2.125 && !Platform.isIOS
+                                                                              ? 18
+                                                                              : !Platform.isIOS
+                                                                                  ? 3
+                                                                                  : 0),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .end,
+                                                              children: <Widget>[
+                                                                VideoDescription(
+                                                                  video.videos
+                                                                      .elementAt(
+                                                                          index),
+                                                                  videoRepo
+                                                                      .homeCon
+                                                                      .value
+                                                                      .pc3,
+                                                                ),
+                                                                sidebar(index,
+                                                                    video)
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 70.0,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  (videoRepo.homeCon.value
+                                                                  .swiperIndex2 ==
+                                                              0 &&
+                                                          !videoRepo
+                                                              .homeCon
+                                                              .value
+                                                              .initializePage)
+                                                      ? SafeArea(
+                                                          child: Container(
+                                                            height: MediaQuery
+                                                                    .of(
+                                                                  context,
+                                                                ).size.height /
+                                                                4,
+                                                            width:
+                                                                MediaQuery.of(
+                                                              context,
+                                                            ).size.width,
+                                                            color: Colors
+                                                                .transparent,
+                                                          ),
+                                                        )
+                                                      : Container(),
                                                 ],
                                               ),
-                                            )
-                                          : Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                              child: Text(
-                                                videoRepo.homeCon.value.comments.elementAt(i).time,
-                                                style: TextStyle(
-                                                  color: settingRepo.setting.value.textColor!.withOpacity(0.5),
-                                                  fontSize: 12.0,
+                                            );
+                                            // }
+                                          },
+                                          itemCount: video.videos.length,
+                                          scrollDirection: Axis.vertical,
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.black87),
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: Center(
+                                            child: GestureDetector(
+                                              onTap: () async {
+                                                if (!videoRepo.homeCon.value
+                                                    .showFollowingPage.value) {
+                                                  videoRepo.homeCon.value
+                                                      .stopController(videoRepo
+                                                          .homeCon
+                                                          .value
+                                                          .swiperIndex);
+                                                } else {
+                                                  videoRepo.homeCon.value
+                                                      .stopController2(videoRepo
+                                                          .homeCon
+                                                          .value
+                                                          .swiperIndex2);
+                                                }
+                                                if (currentUser.value.token !=
+                                                    '') {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    '/users',
+                                                  );
+                                                } else {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PasswordLoginView(
+                                                              userId: 0),
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                              child: Container(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.all(10),
+                                                      padding:
+                                                          EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100),
+                                                          border: Border.all(
+                                                              width: 2,
+                                                              color: Colors
+                                                                  .white)),
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        color: Colors.white,
+                                                        size: 24,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      "This is your feed of user you follow.",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      "You can follow people or subscribe to hashtags.",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Icon(Icons.person_add,
+                                                        color: Colors.white,
+                                                        size: 45),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    videoRepo.homeCon.value.comments.elementAt(i).comment,
-                                    style: TextStyle(
-                                      color: settingRepo.setting.value.textColor,
-                                      fontSize: 12.0,
-                                    ),
-                                  )
+                                            ),
+                                          ),
+                                        ),
+                                  topSection(video),
                                 ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider(
-                        color: Colors.white,
-                        thickness: 0.1,
-                      );
-                    },
-                  ),
-                )
-              : (videoObj!.totalComments > 0)
-                  ? SkeletonLoader(
-                      builder: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundColor: settingRepo.setting.value.textColor,
-                              radius: 18,
-                            ),
-                            SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Container(
-                                      height: 8,
-                                      width: 80,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 8,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(height: 4),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 8,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(height: 15),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Container(
-                                      width: 50,
-                                      height: 9,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      items: videoObj.totalComments > 3 ? 3 : videoObj.totalComments,
-                      period: Duration(seconds: 1),
-                      highlightColor: Colors.white60,
-                      direction: SkeletonDirection.ltr,
-                    )
-                  : Center(
-                      child: Text(
-                        "No comment available",
-                        style: TextStyle(color: settingRepo.setting.value.textColor!.withOpacity(0.5), fontSize: 17, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-        ),
-        loader
-            ? Helper.showLoaderSpinner(Colors.white)
-            : SizedBox(
-                height: 0,
-              )
-      ],
-    );
-  })),
-Container(
-height: 0.1,
-color: settingRepo.setting.value.textColor!.withOpacity(0.5),
-),
-currentUser.value.token != ''
-? Container(
-  padding: EdgeInsets.only(bottom: 20),
-  height: 100,
-  width: config.App(context).appWidth(100),
-  child: Center(
-    child: ValueListenableBuilder(
-        valueListenable: videoRepo.homeCon.value.editedComment,
-        builder: (context, int editCommentIndex, _) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: config.App(context).appWidth(25),
-                child: Center(
-                  child: Container(
-                    width: 40.0,
-                    height: 40.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: userRepo.currentUser.value.userDP != null && userRepo.currentUser.value.userDP != ""
-                          ? CachedNetworkImage(
-                              imageUrl: userRepo.currentUser.value.userDP,
-                              placeholder: (context, url) => Center(
-                                child: Helper.showLoaderSpinner(Colors.white),
-                              ),
-                              fit: BoxFit.fill,
-                            )
-                          : Image.asset(
-                              "assets/images/video-logo.png",
-                              width: 40,
-                              height: 40,
-                            ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  width: config.App(context).appWidth(70),
-                  child: commentField(editCommentIndex),
-                ),
-              ),
-            ],
-          );
-        }),
-  ),
-)
-: SizedBox(
-  height: 0,
-),
-],
-);
-}),
-),
-body: ValueListenableBuilder(
-valueListenable: videoRepo.homeCon.value.showFollowingPage,
-builder: (context, bool show, _) {
-return !show
-? ValueListenableBuilder(
-valueListenable: videosData,
-builder: (context, VideoModel video, _) {
-return Stack(
-children: <Widget>[
-  Swiper(
-    controller: videoRepo.homeCon.value.swipeController as SwiperController,
-    loop: false,
-    index: videoRepo.homeCon.value.swiperIndex,
-    control: new SwiperControl(
-      color: Colors.transparent,
-    ),
-    onIndexChanged: (index) {
-      print("onIndexChanged $index");
-      if (videoRepo.homeCon.value.swiperIndex > index) {
-        print("Prev Code");
-        videoRepo.homeCon.value.previousVideo(index);
-      } else {
-        print("Next Code");
-        videoRepo.homeCon.value.nextVideo(index);
-      }
-      videoRepo.homeCon.value.updateSwiperIndex(index);
-      if (video.videos.length - index == 3) {
-        videoRepo.homeCon.value.listenForMoreVideos().whenComplete(() => unawaited(videoRepo.homeCon.value.preCacheVideoThumbs()));
-      }
-    },
-    itemBuilder: (BuildContext context, int index) {
-      print("Swiper index $index");
-      return GestureDetector(
-        onTap: () {
-          print("click Played");
-          setState(() {
-            videoRepo.homeCon.value.onTap = true;
-            videoRepo.homeCon.notifyListeners();
-            if (videoRepo.homeCon.value.videoController(videoRepo.homeCon.value.swiperIndex).value.isPlaying) {
-              videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-            } else {
-              // If the video is paused, play it.
-              videoRepo.homeCon.value.playController(videoRepo.homeCon.value.swiperIndex);
-            }
-          });
-        },
-        child: Stack(
-          fit: StackFit.loose,
-          children: <Widget>[
-            Container(
+                              );
+                            },
+                          );
+                  }),
+            )
+          : Container(
+              decoration: BoxDecoration(color: Colors.black87),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Container(
-                  color: settingRepo.setting.value.bgColor,
-                  child: VideoPlayerWidget(videoRepo.homeCon.value.videoController(index), video.videos.elementAt(index),
-                      videoRepo.homeCon.value.initializeVideoPlayerFutures[video.videos.elementAt(index).url]),
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                // Top section
-                // Middle expanded
-                Container(
-                  padding: new EdgeInsets.only(
-                    bottom: videoRepo.homeCon.value.paddingBottom +
-                        MediaQuery.of(context).padding.bottom +
-                        (Platform.isIOS && MediaQuery.of(context).devicePixelRatio >= 2
-                            ? 38
-                            : MediaQuery.of(context).viewPadding.bottom > 0
-                                ? 13
-                                : MediaQuery.of(context).devicePixelRatio > 2.125 && !Platform.isIOS
-                                    ? 18
-                                    : !Platform.isIOS
-                                        ? 3
-                                        : 0),
-                  ),
-                  child: Row(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
-                    VideoDescription(
-                      video.videos.elementAt(index),
-                      videoRepo.homeCon.value.pc3,
-                    ),
-                    sidebar(index, video)
-                  ]),
-                ),
-                SizedBox(
-                  height: 70.0,
-                ),
-              ],
-            ),
-            (videoRepo.homeCon.value.swiperIndex == 0 && !videoRepo.homeCon.value.initializePage)
-                ? SafeArea(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 4,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.transparent,
-                    ),
-                  )
-                : Container(),
-          ],
-        ),
-      );
-      // }
-    },
-    itemCount: video.videos.length,
-    scrollDirection: Axis.vertical,
-  ),
-  ValueListenableBuilder(
-      valueListenable: videoRepo.userVideoObj,
-      builder: (context, UserVideoArgs value, _) {
-        return (value.userId == 0 || value.userId == 0) && (value.videoId == 0 || value.videoId == 0) && value.hashTag == ""
-            ? topSection(video)
-            : Padding(
-                padding: const EdgeInsets.only(top: 40.0, bottom: 20),
-                child: Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 0,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                          onPressed: () async {
-                            if (value.videoId != 0 && value.userId == 0) {
-                              videoRepo.userVideoObj.value.userId = 0;
-                              videoRepo.userVideoObj.value.videoId = 0;
-                              videoRepo.userVideoObj.value.hashTag = '';
-                              videoRepo.userVideoObj.value.name = '';
-                              videoRepo.userVideoObj.notifyListeners();
-                              Navigator.of(context).pushReplacementNamed('/home');
-                              videoRepo.homeCon.value.getVideos();
-                            } else {
-                              videoRepo.userVideoObj.value.userId = 0;
-                              videoRepo.userVideoObj.value.videoId = 0;
-                              videoRepo.userVideoObj.value.name = '';
-                              videoRepo.userVideoObj.value.hashTag = '';
-                              videoRepo.userVideoObj.notifyListeners();
-                              if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                                videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-                              } else {
-                                videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-                              }
-                              // await videoRepo.homeCon.value.getFollowingUserVideos();
-                              Navigator.of(context).pushReplacementNamed('/home');
-                              videoRepo.homeCon.value.getVideos();
-                            }
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Transform.translate(
-                          offset: Offset(-10, 0),
-                          child: Text(
-                            value.name != ""
-                                ? value.name + " Videos"
-                                : value.userId != 0
-                                    ? "My Videos"
-                                    : "",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-      }),
-],
-);
-},
-)
-: ValueListenableBuilder(
-valueListenable: followingUsersVideoData,
-builder: (context, VideoModel video, _) {
-return Stack(
-children: <Widget>[
-  (video.videos.length > 0)
-      ? Swiper(
-          controller: videoRepo.homeCon.value.swipeController2 as SwiperController,
-          loop: false,
-          index: videoRepo.homeCon.value.swiperIndex2,
-          control: new SwiperControl(
-            color: Colors.transparent,
-          ),
-          onIndexChanged: (index) {
-            if (videoRepo.homeCon.value.swiperIndex2 > index) {
-              videoRepo.homeCon.value.previousVideo2(index);
-            } else {
-              videoRepo.homeCon.value.nextVideo2(index);
-            }
-            videoRepo.homeCon.value.updateSwiperIndex2(index);
-            if (video.videos.length - index == 3) {
-              videoRepo.homeCon.value.listenForMoreUserFollowingVideos();
-            }
-          },
-          itemBuilder: (BuildContext context, int index) {
-            print("Swiper index $index");
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  // If the video is playing, pause it.
-                  if (videoRepo.homeCon.value.videoController2(videoRepo.homeCon.value.swiperIndex2).value.isPlaying) {
-                    videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-                  } else {
-                    // If the video is paused, play it.
-                    videoRepo.homeCon.value.playController2(videoRepo.homeCon.value.swiperIndex2);
-                  }
-                });
-              },
-              child: new Stack(
-                fit: StackFit.loose,
+              child: Stack(
+                alignment: Alignment.topCenter,
                 children: <Widget>[
-                  Center(
-                    child: Container(
-                      color: Colors.black,
-                      constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
-                      child: VideoPlayerWidget(videoRepo.homeCon.value.videoController2(index), video.videos.elementAt(index),
-                          videoRepo.homeCon.value.initializeVideoPlayerFutures2[video.videos.elementAt(index).url]),
-                    ),
-                  ),
-                  Stack(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                  Container(
+                    height: 111,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          // Top section
-                          // Middle expanded
-                          Container(
-                            padding: new EdgeInsets.only(
-                              bottom: videoRepo.homeCon.value.paddingBottom +
-                                  MediaQuery.of(context).padding.bottom +
-                                  (Platform.isIOS && MediaQuery.of(context).devicePixelRatio >= 2
-                                      ? 38
-                                      : MediaQuery.of(context).viewPadding.bottom > 0
-                                          ? 13
-                                          : MediaQuery.of(context).devicePixelRatio > 2.125 && !Platform.isIOS
-                                              ? 18
-                                              : !Platform.isIOS
-                                                  ? 3
-                                                  : 0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                VideoDescription(
-                                  video.videos.elementAt(index),
-                                  videoRepo.homeCon.value.pc3,
-                                ),
-                                sidebar(index, video)
-                              ],
+                          Text(
+                            "Following",
+                            style: TextStyle(
+                              color: settingRepo.setting.value.textColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
                             ),
                           ),
                           SizedBox(
-                            height: 70.0,
+                            width: 20,
+                          ),
+                          Container(
+                            height: 18,
+                            width: 2,
+                            color:
+                                settingRepo.setting.value.dividerColor != null
+                                    ? settingRepo.setting.value.dividerColor
+                                    : Colors.grey[400],
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            child: Text(
+                              "Featured",
+                              style: TextStyle(
+                                color: settingRepo.setting.value.textColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            onTap: () async {
+                              if (!videoRepo
+                                  .homeCon.value.showFollowingPage.value) {
+                                videoRepo.homeCon.value.stopController(
+                                    videoRepo.homeCon.value.swiperIndex);
+                              } else {
+                                videoRepo.homeCon.value.showFollowingPage
+                                    .value = false;
+                                videoRepo.homeCon.value.showFollowingPage
+                                    .notifyListeners();
+
+                                videoRepo.homeCon.value.stopController2(
+                                    videoRepo.homeCon.value.swiperIndex2);
+                              }
+
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/home');
+                              videoRepo.homeCon.value.getVideos();
+                            },
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                  (videoRepo.homeCon.value.swiperIndex2 == 0 && !videoRepo.homeCon.value.initializePage)
-                      ? SafeArea(
-                          child: Container(
-                            height: MediaQuery.of(
-                                  context,
-                                ).size.height /
-                                4,
-                            width: MediaQuery.of(
-                              context,
-                            ).size.width,
-                            color: Colors.transparent,
-                          ),
-                        )
-                      : Container(),
+                  Center(
+                    child: Center(
+                      child: Helper.showLoaderSpinner(
+                          settingRepo.setting.value.iconColor!),
+                    ),
+                  ),
                 ],
               ),
             );
-            // }
-          },
-          itemCount: video.videos.length,
-          scrollDirection: Axis.vertical,
-        )
-      : Container(
-          decoration: BoxDecoration(color: Colors.black87),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Center(
-            child: GestureDetector(
-              onTap: () async {
-                if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                  videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-                } else {
-                  videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-                }
-                if (currentUser.value.token != '') {
-                  Navigator.pushNamed(
-                    context,
-                    '/users',
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PasswordLoginView(userId: 0),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), border: Border.all(width: 2, color: Colors.white)),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "This is your feed of user you follow.",
-                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "You can follow people or subscribe to hashtags.",
-                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Icon(Icons.person_add, color: Colors.white, size: 45),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
+    }
+  }
+
+  Widget topSection(video) {
+    return SafeArea(
+      child: Container(
+        color: Colors.black12,
+        height: 60,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 25.0, bottom: 0),
+          child: Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    child: ValueListenableBuilder(
+                        valueListenable:
+                            videoRepo.homeCon.value.showFollowingPage,
+                        builder: (context, bool show, _) {
+                          return Text("Following",
+                              style: TextStyle(
+                                color: settingRepo.setting.value.textColor,
+                                fontWeight:
+                                    show ? FontWeight.bold : FontWeight.w400,
+                                fontSize: 16.0,
+                              ));
+                        }),
+                    onTap: () async {
+                      if (!videoRepo.homeCon.value.showFollowingPage.value) {
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
+                      } else {
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
+                      }
+                      videoRepo.homeCon.value.showFollowingPage.value = true;
+                      videoRepo.homeCon.value.showFollowingPage
+                          .notifyListeners();
+                      Navigator.of(context).pushReplacementNamed('/home');
+                      videoRepo.homeCon.value.getFollowingUserVideos();
+                    },
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 18,
+                    width: 1,
+                    color: settingRepo.setting.value.dividerColor != null
+                        ? settingRepo.setting.value.dividerColor
+                        : Colors.grey[400],
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  GestureDetector(
+                    child: ValueListenableBuilder(
+                        valueListenable:
+                            videoRepo.homeCon.value.showFollowingPage,
+                        builder: (context, bool show, _) {
+                          return Text(
+                            "Featured",
+                            style: TextStyle(
+                              color: settingRepo.setting.value.textColor,
+                              fontWeight:
+                                  show ? FontWeight.w400 : FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
+                          );
+                        }),
+                    onTap: () async {
+                      if (!videoRepo.homeCon.value.showFollowingPage.value) {
+                        videoRepo.homeCon.value.stopController(
+                            videoRepo.homeCon.value.swiperIndex);
+                      } else {
+                        videoRepo.homeCon.value.showFollowingPage.value = false;
+                        videoRepo.homeCon.value.showFollowingPage
+                            .notifyListeners();
+
+                        videoRepo.homeCon.value.stopController2(
+                            videoRepo.homeCon.value.swiperIndex2);
+                      }
+                      Navigator.of(context).pushReplacementNamed('/home');
+                      videoRepo.homeCon.value.getVideos();
+                    },
+                  ),
+                ],
               ),
-            ),
+              Positioned(
+                right: 0,
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationsView(),
+                        ),
+                      );
+                    },
+                    child: ValueListenableBuilder(
+                        valueListenable: videoRepo.notificationsCount,
+                        builder: (context, int _notificationsCount, _) {
+                          return Stack(
+                            children: [
+                              Container(
+                                width: config.App(context).appWidth(15),
+                                child: SvgPicture.asset(
+                                  "assets/icons/notification.svg",
+                                  color: settingRepo
+                                      .setting.value.dashboardIconColor,
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 10,
+                                child: _notificationsCount > 0
+                                    ? Transform.translate(
+                                        offset: Offset(-2, -6),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: settingRepo
+                                                .setting.value.accentColor,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              _notificationsCount.toString(),
+                                              style: TextStyle(
+                                                color: settingRepo
+                                                    .setting.value.textColor,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(
+                                        height: 0,
+                                      ),
+                              ),
+                            ],
+                          );
+                        })),
+              ),
+            ],
           ),
         ),
-  topSection(video),
-],
-);
-},
-);
-}),
-)
-: Container(
-decoration: BoxDecoration(color: Colors.black87),
-height: MediaQuery.of(context).size.height,
-width: MediaQuery.of(context).size.width,
-child: Stack(
-alignment: Alignment.topCenter,
-children: <Widget>[
-Container(
-height: 111,
-width: MediaQuery.of(context).size.width,
-child: Padding(
-padding: const EdgeInsets.only(top: 25.0),
-child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
-children: <Widget>[
-Text(
-"Following",
-style: TextStyle(
-color: settingRepo.setting.value.textColor,
-fontWeight: FontWeight.w400,
-fontSize: 16.0,
-),
-),
-SizedBox(
-width: 20,
-),
-Container(
-height: 18,
-width: 2,
-color: settingRepo.setting.value.dividerColor != null ? settingRepo.setting.value.dividerColor : Colors.grey[400],
-),
-SizedBox(
-width: 20,
-),
-GestureDetector(
-child: Text(
-"Featured",
-style: TextStyle(
-color: settingRepo.setting.value.textColor,
-fontWeight: FontWeight.w400,
-fontSize: 16.0,
-),
-),
-onTap: () async {
-if (!videoRepo.homeCon.value.showFollowingPage.value) {
-videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-} else {
-videoRepo.homeCon.value.showFollowingPage.value = false;
-videoRepo.homeCon.value.showFollowingPage.notifyListeners();
-
-videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-}
-
-Navigator.of(context).pushReplacementNamed('/home');
-videoRepo.homeCon.value.getVideos();
-},
-),
-],
-),
-),
-),
-Center(
-child: Center(
-child: Helper.showLoaderSpinner(settingRepo.setting.value.iconColor!),
-),
-),
-],
-),
-);
-}
-}
-
-Widget topSection(video) {
-return SafeArea(
-child: Container(
-color: Colors.black12,
-height: 60,
-child: Padding(
-padding: const EdgeInsets.only(top: 25.0, bottom: 0),
-child: Stack(
-children: [
-Row(
-mainAxisAlignment: MainAxisAlignment.center,
-children: <Widget>[
-GestureDetector(
-child: ValueListenableBuilder(
-valueListenable: videoRepo.homeCon.value.showFollowingPage,
-builder: (context, bool show, _) {
-return Text("Following",
-style: TextStyle(
-color: settingRepo.setting.value.textColor,
-fontWeight: show ? FontWeight.bold : FontWeight.w400,
-fontSize: 16.0,
-));
-}),
-onTap: () async {
-if (!videoRepo.homeCon.value.showFollowingPage.value) {
-videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-} else {
-videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-}
-videoRepo.homeCon.value.showFollowingPage.value = true;
-videoRepo.homeCon.value.showFollowingPage.notifyListeners();
-Navigator.of(context).pushReplacementNamed('/home');
-videoRepo.homeCon.value.getFollowingUserVideos();
-},
-),
-SizedBox(
-width: 20,
-),
-Container(
-height: 18,
-width: 1,
-color: settingRepo.setting.value.dividerColor != null ? settingRepo.setting.value.dividerColor : Colors.grey[400],
-),
-SizedBox(
-width: 20,
-),
-GestureDetector(
-child: ValueListenableBuilder(
-valueListenable: videoRepo.homeCon.value.showFollowingPage,
-builder: (context, bool show, _) {
-return Text(
-"Featured",
-style: TextStyle(
-color: settingRepo.setting.value.textColor,
-fontWeight: show ? FontWeight.w400 : FontWeight.bold,
-fontSize: 16.0,
-),
-);
-}),
-onTap: () async {
-if (!videoRepo.homeCon.value.showFollowingPage.value) {
-videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-} else {
-videoRepo.homeCon.value.showFollowingPage.value = false;
-videoRepo.homeCon.value.showFollowingPage.notifyListeners();
-
-videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-}
-Navigator.of(context).pushReplacementNamed('/home');
-videoRepo.homeCon.value.getVideos();
-},
-),
-],
-),
-Positioned(
-right: 0,
-child: InkWell(
-onTap: () {
-Navigator.pushReplacement(
-context,
-MaterialPageRoute(
-builder: (context) => NotificationsView(),
-),
-);
-},
-child: ValueListenableBuilder(
-valueListenable: videoRepo.notificationsCount,
-builder: (context, int _notificationsCount, _) {
-return Stack(
-children: [
-Container(
-width: config.App(context).appWidth(15),
-child: SvgPicture.asset(
-  "assets/icons/notification.svg",
-  color: settingRepo.setting.value.dashboardIconColor,
-  width: 20,
-  height: 20,
-),
-),
-Positioned(
-top: 0,
-right: 10,
-child: _notificationsCount > 0
-    ? Transform.translate(
-        offset: Offset(-2, -6),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-          decoration: BoxDecoration(
-            color: settingRepo.setting.value.accentColor,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Center(
-            child: Text(
-              _notificationsCount.toString(),
-              style: TextStyle(
-                color: settingRepo.setting.value.textColor,
-                fontSize: 10,
-              ),
-            ),
-          ),
-        ),
-      )
-    : SizedBox(
-        height: 0,
       ),
-),
-],
-);
-})),
-),
-],
-),
-),
-),
-);
-}
+    );
+  }
 
-Widget _getMusicPlayerAction(index, video) {
-Video videoObj = video.videos.elementAt(index);
-return GestureDetector(
-onTap: () async {
-if (currentUser.value.token != '') {
-if (!videoRepo.homeCon.value.showFollowingPage.value) {
-videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-} else {
-videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-}
-videoRepo.homeCon.value.soundShowLoader.value = true;
-videoRepo.homeCon.value.soundShowLoader.notifyListeners();
-SoundData sound = await soundRepo.getSound(videoObj.soundId);
-soundRepo.selectSound(sound).whenComplete(() {
-videoRepo.homeCon.value.soundShowLoader.value = false;
-videoRepo.homeCon.value.soundShowLoader.notifyListeners();
-videoRepo.isOnRecordingPage.value = true;
-videoRepo.isOnRecordingPage.notifyListeners();
-Navigator.pushReplacementNamed(
-context,
-"/video-recorder",
-);
-});
-} else {
-if (!videoRepo.homeCon.value.showFollowingPage.value) {
-videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
-} else {
-videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
-}
-Navigator.pushReplacement(
-context,
-MaterialPageRoute(
-builder: (context) => PasswordLoginView(userId: 0),
-),
-);
-}
-},
-child: RotationTransition(
-turns: Tween(begin: 0.0, end: 1.0).animate(musicAnimationController),
-child: Container(
-margin: EdgeInsets.only(top: 10.0),
-width: 50,
-height: 50,
-child: Column(
-children: [
-Container(
-padding: EdgeInsets.all(2),
-height: 40,
-width: 40,
-decoration: BoxDecoration(
-color: settingRepo.setting.value.dashboardIconColor,
-borderRadius: BorderRadius.circular(50 / 2),
-),
-child: ValueListenableBuilder(
-valueListenable: videoRepo.homeCon.value.soundShowLoader,
-builder: (context, bool loader, _) {
-return (!loader)
-? Container(
-height: 45.0,
-width: 45.0,
-decoration: BoxDecoration(
-color: Colors.white30,
-borderRadius: BorderRadius.circular(50),
-),
-child: ClipRRect(
-borderRadius: BorderRadius.circular(50.0),
-child: videoObj.soundImageUrl != ""
-    ? CachedNetworkImage(
-        imageUrl: videoObj.soundImageUrl,
-        memCacheHeight: 50,
-        memCacheWidth: 50,
-        errorWidget: (a, b, c) {
-          return Image.asset(
-            "assets/images/splash.png",
-            fit: BoxFit.cover,
+  Widget _getMusicPlayerAction(index, video) {
+    Video videoObj = video.videos.elementAt(index);
+    return GestureDetector(
+      onTap: () async {
+        if (currentUser.value.token != '') {
+          if (!videoRepo.homeCon.value.showFollowingPage.value) {
+            videoRepo.homeCon.value
+                .stopController(videoRepo.homeCon.value.swiperIndex);
+          } else {
+            videoRepo.homeCon.value
+                .stopController2(videoRepo.homeCon.value.swiperIndex2);
+          }
+          videoRepo.homeCon.value.soundShowLoader.value = true;
+          videoRepo.homeCon.value.soundShowLoader.notifyListeners();
+          SoundData sound = await soundRepo.getSound(videoObj.soundId);
+          soundRepo.selectSound(sound).whenComplete(() {
+            videoRepo.homeCon.value.soundShowLoader.value = false;
+            videoRepo.homeCon.value.soundShowLoader.notifyListeners();
+            videoRepo.isOnRecordingPage.value = true;
+            videoRepo.isOnRecordingPage.notifyListeners();
+            Navigator.pushReplacementNamed(
+              context,
+              "/video-recorder",
+            );
+          });
+        } else {
+          if (!videoRepo.homeCon.value.showFollowingPage.value) {
+            videoRepo.homeCon.value
+                .stopController(videoRepo.homeCon.value.swiperIndex);
+          } else {
+            videoRepo.homeCon.value
+                .stopController2(videoRepo.homeCon.value.swiperIndex2);
+          }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PasswordLoginView(userId: 0),
+            ),
           );
-        },
-      )
-    : Image.asset(
-        "assets/images/splash.png",
-        fit: BoxFit.cover,
-      ),
-),
-)
-: Helper.showLoaderSpinner(Colors.white);
+        }
+      },
+      child: RotationTransition(
+        turns: Tween(begin: 0.0, end: 1.0).animate(musicAnimationController),
+        child: Container(
+          margin: EdgeInsets.only(top: 10.0),
+          width: 50,
+          height: 50,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(2),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: settingRepo.setting.value.dashboardIconColor,
+                  borderRadius: BorderRadius.circular(50 / 2),
+                ),
+                child: ValueListenableBuilder(
+                    valueListenable: videoRepo.homeCon.value.soundShowLoader,
+                    builder: (context, bool loader, _) {
+                      return (!loader)
+                          ? Container(
+                              height: 45.0,
+                              width: 45.0,
+                              decoration: BoxDecoration(
+                                color: Colors.white30,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: videoObj.soundImageUrl != ""
+                                    ? CachedNetworkImage(
+                                        imageUrl: videoObj.soundImageUrl,
+                                        memCacheHeight: 50,
+                                        memCacheWidth: 50,
+                                        errorWidget: (a, b, c) {
+                                          return Image.asset(
+                                            "assets/images/splash.png",
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )
+                                    : Image.asset(
+                                        "assets/images/splash.png",
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            )
+                          : Helper.showLoaderSpinner(Colors.white);
                     }),
               ),
             ],
@@ -2337,20 +3389,24 @@ child: videoObj.soundImageUrl != ""
     if (currentUser.value.token != '') {
       if (!videoRepo.homeCon.value.showFollowingPage.value) {
         setState(() {
-          videoRepo.homeCon.value.likeVideo(videoRepo.homeCon.value.swiperIndex);
+          videoRepo.homeCon.value
+              .likeVideo(videoRepo.homeCon.value.swiperIndex);
         });
       } else {
         setState(() {
-          videoRepo.homeCon.value.likeFollowingVideo(videoRepo.homeCon.value.swiperIndex2);
+          videoRepo.homeCon.value
+              .likeFollowingVideo(videoRepo.homeCon.value.swiperIndex2);
         });
       }
     } else {
       videoRepo.homeCon.value.hideBottomBar.value = false;
       videoRepo.homeCon.value.hideBottomBar.notifyListeners();
       if (!videoRepo.homeCon.value.showFollowingPage.value) {
-        videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+        videoRepo.homeCon.value
+            .stopController(videoRepo.homeCon.value.swiperIndex);
       } else {
-        videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+        videoRepo.homeCon.value
+            .stopController2(videoRepo.homeCon.value.swiperIndex2);
       }
       setState(() {});
       Navigator.pushReplacement(
@@ -2373,25 +3429,34 @@ child: videoObj.soundImageUrl != ""
     Video videoObj = video.videos.elementAt(index);
 
     Codec<String, String> stringToBase64 = utf8.fuse(base64);
-    videoRepo.homeCon.value.encodedVideoId = stringToBase64.encode(videoRepo.homeCon.value.encKey + videoObj.videoId.toString());
+    videoRepo.homeCon.value.encodedVideoId = stringToBase64
+        .encode(videoRepo.homeCon.value.encKey + videoObj.videoId.toString());
     return Container(
-      padding: new EdgeInsets.only(bottom: videoRepo.homeCon.value.paddingBottom - 30 > 0 ? videoRepo.homeCon.value.paddingBottom - 30 : 20),
+      padding: new EdgeInsets.only(
+          bottom: videoRepo.homeCon.value.paddingBottom - 30 > 0
+              ? videoRepo.homeCon.value.paddingBottom - 30
+              : 20),
       width: 70.0,
       child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Column(
           children: [
             LikeButton(
               size: 28,
-              circleColor: CircleColor(start: Colors.transparent, end: Colors.transparent),
+              circleColor: CircleColor(
+                  start: Colors.transparent, end: Colors.transparent),
               bubblesColor: BubblesColor(
-                dotPrimaryColor: videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
-                dotSecondaryColor: videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
+                dotPrimaryColor:
+                    videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
+                dotSecondaryColor:
+                    videoObj.isLike ? Color(0xffee1d52) : Color(0xffffffff),
               ),
               likeBuilder: (bool isLiked) {
                 return SvgPicture.asset(
                   'assets/icons/liked.svg',
                   width: 28.0,
-                  color: videoObj.isLike ? Color(0xffee1d52) : settingRepo.setting.value.dashboardIconColor,
+                  color: videoObj.isLike
+                      ? Color(0xffee1d52)
+                      : settingRepo.setting.value.dashboardIconColor,
                 );
               },
               onTap: onLikeButtonTapped,
@@ -2417,14 +3482,16 @@ child: videoObj.soundImageUrl != ""
                   width: 50.0,
                   child: IconButton(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only(top: 9, bottom: 6, left: 5.0, right: 5.0),
+                    padding: EdgeInsets.only(
+                        top: 9, bottom: 6, left: 5.0, right: 5.0),
                     icon: SvgPicture.asset(
                       'assets/icons/comments.svg',
                       width: 28.0,
                       color: settingRepo.setting.value.dashboardIconColor,
                     ),
                     onPressed: () {
-                      if (videoRepo.homeCon.value.bannerShowOn.indexOf("1") > -1) {
+                      if (videoRepo.homeCon.value.bannerShowOn.indexOf("1") >
+                          -1) {
                         setState(() {
                           videoRepo.homeCon.value.paddingBottom = 0;
                         });
@@ -2435,7 +3502,9 @@ child: videoObj.soundImageUrl != ""
                       videoRepo.homeCon.value.showBannerAd.value = false;
                       videoRepo.homeCon.value.showBannerAd.notifyListeners();
                       videoRepo.homeCon.value.pc.open();
-                      videoRepo.homeCon.value.getComments(videoObj).whenComplete(() {
+                      videoRepo.homeCon.value
+                          .getComments(videoObj)
+                          .whenComplete(() {
                         Timer(Duration(seconds: 1), () => setState(() {}));
                       });
                     },
@@ -2464,7 +3533,8 @@ child: videoObj.soundImageUrl != ""
                   width: 50.0,
                   child: IconButton(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+                    padding: EdgeInsets.only(
+                        top: 0, bottom: 0, left: 5.0, right: 5.0),
                     icon: SvgPicture.asset(
                       'assets/icons/views.svg',
                       width: 32.0,
@@ -2501,15 +3571,20 @@ child: videoObj.soundImageUrl != ""
                             icon: SvgPicture.asset(
                               'assets/icons/share.svg',
                               width: 35.0,
-                              color: settingRepo.setting.value.dashboardIconColor,
+                              color:
+                                  settingRepo.setting.value.dashboardIconColor,
                             ),
                             onPressed: () async {
-                              Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                              String vId = stringToBase64.encode(videoObj.videoId.toString());
-                              Share.share('${GlobalConfiguration().get('base_url')}$vId');
+                              Codec<String, String> stringToBase64 =
+                                  utf8.fuse(base64);
+                              String vId = stringToBase64
+                                  .encode(videoObj.videoId.toString());
+                              Share.share(
+                                  '${GlobalConfiguration().get('base_url')}$vId');
                             },
                           )
-                        : Helper.showLoaderSpinner(settingRepo.setting.value.dashboardIconColor!);
+                        : Helper.showLoaderSpinner(
+                            settingRepo.setting.value.dashboardIconColor!);
                   }),
             ),
           ],
@@ -2535,9 +3610,11 @@ child: videoObj.soundImageUrl != ""
                     reportLayout(context, videoObj);
                   } else {
                     if (!videoRepo.homeCon.value.showFollowingPage.value) {
-                      videoRepo.homeCon.value.stopController(videoRepo.homeCon.value.swiperIndex);
+                      videoRepo.homeCon.value
+                          .stopController(videoRepo.homeCon.value.swiperIndex);
                     } else {
-                      videoRepo.homeCon.value.stopController2(videoRepo.homeCon.value.swiperIndex2);
+                      videoRepo.homeCon.value.stopController2(
+                          videoRepo.homeCon.value.swiperIndex2);
                     }
                     Navigator.pushReplacement(
                       context,

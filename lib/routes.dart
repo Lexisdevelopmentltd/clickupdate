@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leuke/src/views/login_view.dart';
 
 import 'src/views/conversations_view.dart';
 import 'src/views/dashboard_view.dart';
@@ -19,8 +20,8 @@ class RouteGenerator {
       case '/splash-screen':
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/home':
-        // return MaterialPageRoute(builder: (_) => DashboardView());
-        return MaterialPageRoute(builder: (_) => DashboardView());
+         //return MaterialPageRoute(builder: (_) => LoginView());
+       return MaterialPageRoute(builder: (_) => DashboardView());
       case '/password-login':
         return MaterialPageRoute(builder: (_) => PasswordLoginView());
       case '/sign-up':

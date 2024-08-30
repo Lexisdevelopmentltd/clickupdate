@@ -3,7 +3,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as date;
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart' as date;
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -892,7 +892,8 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                               }
                             },*/
                             popupProps: PopupProps.bottomSheet(),
-                            dropdownSearchDecoration: InputDecoration(
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration: InputDecoration(
                               labelText: "Select Gender",
                               labelStyle: TextStyle(color: settingRepo.setting.value.textColor!.withOpacity(0.6), fontSize: 17),
                               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
@@ -914,6 +915,7 @@ class _CompleteProfileViewState extends StateMVC<CompleteProfileView> with Singl
                                   width: 1,
                                 ),
                               ),
+                            ),
                             ),
                             items: _con.gender,
                             // mode: Mode.BOTTOM_SHEET,

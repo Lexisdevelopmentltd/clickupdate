@@ -3,7 +3,7 @@ description: Leuke - A social platform for Videos.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.devcd 
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -22,6 +22,7 @@ environment:
 dependencies:
     flutter:
       sdk: flutter
+    flutter_datetime_picker_plus: ^2.2.0
 
 dependency_overrides:
   # The following adds the Cupertino Icons font to your application.
@@ -32,19 +33,19 @@ dependency_overrides:
   http: 0.13.4
   convex_bottom_bar: ^3.0.0 #^2.7.0
   shared_preferences: 2.0.15
-  cached_network_image: 3.2.1
+  cached_network_image: ^3.4.1
   assets_audio_player: 3.0.4+3
   like_button: 2.0.4
-  awesome_dialog: ^3.0.2
-  camera: 0.9.7+1
+  awesome_dialog: ^3.2.1
+  camera: 0.11.0+2
   image_picker: 0.8.5+3
   visibility_detector: 0.3.3
   dio: 4.0.6
-  photo_view: 0.13.0
+  photo_view: ^0.15.0
   flutter_facebook_auth: 4.3.4
   sign_in_with_apple: 4.0.0
   google_sign_in: 5.3.1
-  photo_manager: ^2.1.1
+  photo_manager: ^3.2.3
   video_player: 2.4.5
   sliding_up_panel: 2.0.0+1
   modal_progress_hud_nsn: 0.1.0-nullsafety-1
@@ -54,7 +55,7 @@ dependency_overrides:
   skeleton_loader: 2.0.0+4
   flutter_native_timezone: 2.0.0
   change_app_package_name: ^1.0.0
-  carousel_slider: 4.1.1
+  carousel_slider: ^5.0.0
   share_plus: ^4.0.4
   grouped_list: 5.0.1
   fluttertoast: 8.0.9
@@ -62,20 +63,20 @@ dependency_overrides:
   flutter_circular_slider: 2.5.0
   url_launcher: 6.1.0
   flutter_cache_manager: 3.3.0
-  pin_code_fields: 7.4.0
+  pin_code_fields: ^8.0.1
   dotted_border: 2.0.0+2
-  dropdown_search: 4.0.1
+  dropdown_search: ^5.0.6
   flutter_html: ^3.0.0-alpha.3
 #  flutter_svg: 1.0.3
   flutter_svg: ^1.1.5
-  velocity_x: ^3.5.1
+  velocity_x: ^4.2.1
   flutter_phoenix: 1.0.0
-  liquid_progress_indicator_ns: 1.0.0
+  liquid_progress_indicator_v2: ^0.5.0
   google_mobile_ads: 1.2.0
   uni_links: ^0.5.1
 #  permission_handler: 9.2.0
   permission_handler: ^10.0.1
-  flutter_local_notifications: 9.4.1
+  flutter_local_notifications: ^17.2.2
   platform_device_id: 1.0.1
   firebase_messaging: 11.4.1
   firebase_core: 1.10.0
@@ -92,10 +93,10 @@ dependency_overrides:
   ffmpeg_kit_flutter_min_gpl: 4.5.1-LTS
   stories_editor:
     path: ./packages_list/stories_editor
-  flutter_datetime_picker:
-    git:
-      url: https://github.com/Realank/flutter_datetime_picker.git
-      ref: master
+  #flutter_datetime_picker:
+   # git:
+    #  url: https://github.com/Realank/flutter_datetime_picker.git
+     # ref: master
   animated_text_kit: 4.2.1
   flutter_swiper_plus:
     path: ./packages_list/flutter_swiper_plus
@@ -105,11 +106,11 @@ dependency_overrides:
 #  video_thumbnail: 0.5.0
   video_thumbnail: ^0.5.3
   platform: 3.1.0
-  open_file: 3.2.1
+  open_file: ^3.4.0
   gallery_saver: 2.3.2
   flutter_easyloading: ^3.0.5
   connectivity_plus: 2.3.0
-  readmore: 2.1.0
+  readmore: ^3.0.0
   flutter_native_splash: ^2.2.9
 
 # For information on the generic Dart part of this file, see the

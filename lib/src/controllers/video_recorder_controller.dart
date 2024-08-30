@@ -364,8 +364,8 @@ class VideoRecorderController extends ControllerMVC {
     AwesomeDialog(
       dialogBackgroundColor: settingRepo.setting.value.buttonColor,
       context: GlobalVariable.navState.currentContext!,
-      animType: AnimType.SCALE,
-      dialogType: DialogType.WARNING,
+      animType: AnimType.scale,
+      dialogType: DialogType.warning,
       body: dialogContent(context),
       btnOkText: "Close",
     )..show();
@@ -529,7 +529,7 @@ class VideoRecorderController extends ControllerMVC {
     AwesomeDialog(
       dialogBackgroundColor: settingRepo.setting.value.buttonColor,
       context: GlobalVariable.navState.currentContext!,
-      animType: AnimType.SCALE,
+      animType: AnimType.scale,
       dialogType: DialogType.question,
       body: Column(
         children: <Widget>[
@@ -693,8 +693,8 @@ class VideoRecorderController extends ControllerMVC {
           AwesomeDialog(
             dialogBackgroundColor: settingRepo.setting.value.buttonColor,
             context: GlobalVariable.navState.currentContext!,
-            animType: AnimType.SCALE,
-            dialogType: DialogType.WARNING,
+            animType: AnimType.scale,
+            dialogType: DialogType.warning,
             body: Padding(
               padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
               child: Column(
@@ -885,8 +885,8 @@ class VideoRecorderController extends ControllerMVC {
         AwesomeDialog(
           dialogBackgroundColor: settingRepo.setting.value.buttonColor,
           context: GlobalVariable.navState.currentContext!,
-          animType: AnimType.SCALE,
-          dialogType: DialogType.WARNING,
+          animType: AnimType.scale,
+          dialogType: DialogType.warning,
           body: Padding(
             padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
             child: Column(
@@ -1187,8 +1187,8 @@ class VideoRecorderController extends ControllerMVC {
               AwesomeDialog(
                 dialogBackgroundColor: settingRepo.setting.value.buttonColor,
                 context: GlobalVariable.navState.currentContext!,
-                animType: AnimType.SCALE,
-                dialogType: DialogType.WARNING,
+                animType: AnimType.scale,
+                dialogType: DialogType.warning,
                 body: Padding(
                   padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
                   child: Column(

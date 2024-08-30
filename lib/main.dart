@@ -189,10 +189,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'ProductSans',
-        primaryColor: Colors.white,
+       // primaryColor: Colors.white,
         floatingActionButtonTheme: FloatingActionButtonThemeData(elevation: 0, foregroundColor: Colors.white),
         brightness: Brightness.light,
-    colorSchemeSeed: Color(0xff36C5D3),
+        // colorSchemeSeed: Color(0xff36C5D3),
         dividerColor: Color(0xff36C5D3).withOpacity(0.1),
         focusColor: Color(0xff36C5D3).withOpacity(1),
         hintColor: Color(0xff000000).withOpacity(0.2),

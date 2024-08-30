@@ -112,7 +112,7 @@ class BottomTools extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(left: 12, right: 5, top: 4, bottom: 4),
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: Colors.white, width: 1.5)),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
@@ -156,7 +156,7 @@ class BottomTools extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.only(left: 12, right: 5, top: 4, bottom: 4),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: Colors.white, width: 1.5)),
-                                  child: Row(mainAxisSize: MainAxisSize.min, children: const [
+                                  child: const Row(mainAxisSize: MainAxisSize.min, children: [
                                     Text(
                                       'Done',
                                       style: TextStyle(color: Colors.white, letterSpacing: 1.5, fontSize: 16, fontWeight: FontWeight.w400),

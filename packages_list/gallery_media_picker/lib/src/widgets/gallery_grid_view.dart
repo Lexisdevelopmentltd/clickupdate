@@ -90,6 +90,14 @@ class _GalleryGridViewState extends State<GalleryGridView> {
   /// notifier for scroll events
   final scrolling = ValueNotifier(false);
 
+  int pathCount = 0;
+
+  @override
+  void initState() async {
+    pathCount = await widget.path?.assetCountAsync ?? 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     /// generate thumbnail grid view
@@ -114,7 +122,7 @@ class _GalleryGridViewState extends State<GalleryGridView> {
                 /// render thumbnail
                 itemBuilder: (context, index) =>
                     _buildItem(context, index, widget.provider),
-                itemCount: widget.path!.assetCount,
+                itemCount: pathCount,
                 addRepaintBoundaries: true,
               ),
             ),

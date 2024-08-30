@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:liquid_progress_indicator_ns/liquid_progress_indicator.dart';
+//import 'package:liquid_progress_indicator_ns/liquid_progress_indicator.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 
 import '../controllers/splash_screen_controller.dart';
 import '../repositories/settings_repository.dart' as settingRepo;
@@ -29,6 +30,7 @@ class SplashScreenState extends StateMVC<SplashScreen> with WidgetsBindingObserv
 
   @override
   void initState() {
+    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     _con.initializing();
     super.initState();
   }
@@ -46,7 +48,7 @@ class SplashScreenState extends StateMVC<SplashScreen> with WidgetsBindingObserv
         onWillPop: () {
           DateTime now = DateTime.now();
           // Navigator.pop(context);
-          if (currentBackPressTime == null || now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+          if (now.difference(currentBackPressTime) > Duration(seconds: 2)) {
             currentBackPressTime = now;
             Fluttertoast.showToast(msg: "Tap again to exit an app.");
             return Future.value(false);
